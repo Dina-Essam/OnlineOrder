@@ -2,8 +2,10 @@ package com.example.amr.onlineorder;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.io.Serializable;
+
 @IgnoreExtraProperties
-public class Category {
+public class Category implements Serializable {
     String id;
 
     public String getId() {

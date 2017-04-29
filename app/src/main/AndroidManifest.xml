@@ -39,15 +39,15 @@
         <activity
             android:name=".SelectHowToDo"
             android:label="What do you want ?"
-            android:theme="@style/Base.Theme.AppCompat.Light.Dialog">
-        </activity>
-        <activity android:name=".SelectHowtoDoProduct"
+            android:theme="@style/Base.Theme.AppCompat.Light.Dialog"></activity>
+        <activity
+            android:name=".SelectHowtoDoProduct"
             android:label="What do you want ?"
-            android:theme="@style/Base.Theme.AppCompat.Light.Dialog">
-        </activity>
+            android:theme="@style/Base.Theme.AppCompat.Light.Dialog"></activity>
         <activity
             android:name=".show_brands_to_user"
             android:label="Brandes" />
+        <activity android:name=".show_categories_to_user"></activity>
     </application>
 
 </manifest>
