@@ -45,6 +45,9 @@
             android:label="What do you want ?"
             android:theme="@style/Base.Theme.AppCompat.Light.Dialog">
         </activity>
+        <activity
+            android:name=".show_brands_to_user"
+            android:label="Brandes" />
     </application>
 
 </manifest>
