@@ -2,11 +2,13 @@ package com.example.amr.onlineorder;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.io.Serializable;
+
 /**
  * Created by Amr on 24/04/2017.
  */
 @IgnoreExtraProperties
-public class Admin extends Person {
+public class Admin extends Person implements Serializable {
 
     String url;
 
