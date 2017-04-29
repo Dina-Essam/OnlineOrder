@@ -26,7 +26,7 @@
                 android:layout_width="300dp"
                 android:layout_height="207dp"
                 android:layout_gravity="center"
-                android:src="@mipmap/order3" />
+                android:src="@mipmap/order" />
 
         </GridLayout>
 

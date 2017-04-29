@@ -10,38 +10,17 @@ public class Admin extends Person {
 
     String url;
 
-    public Admin(String id, String name, String email, String phone, String address, String url) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.phone = phone;
-        this.address = address;
-        this.url = url;
-    }
 
     public String getUrl() {
         return url;
     }
 
-    public String getName() {
-        return name;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public String getEmail() {
-        return email;
+    public Admin(String id, String name, String email, String phone, String address, String url) {
+        super(id, name, email, phone, address);
+        this.url = url;
     }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public String getID() {
-        return id;
-    }
-
-
 }

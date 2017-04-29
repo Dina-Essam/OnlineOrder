@@ -24,7 +24,7 @@
             android:layout_marginTop="60dp">
 
             <ImageView
-                android:src="@mipmap/order3"
+                android:src="@mipmap/order"
                 android:layout_width="300dp"
                 android:layout_height="207dp"
                 android:id="@+id/imageView" />

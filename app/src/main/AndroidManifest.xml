@@ -39,8 +39,12 @@
         <activity
             android:name=".SelectHowToDo"
             android:label="What do you want ?"
-            android:theme="@style/Base.Theme.AppCompat.Light.Dialog"></activity>
-        <activity android:name=".SelectHowtoDoProduct"></activity>
+            android:theme="@style/Base.Theme.AppCompat.Light.Dialog">
+        </activity>
+        <activity android:name=".SelectHowtoDoProduct"
+            android:label="What do you want ?"
+            android:theme="@style/Base.Theme.AppCompat.Light.Dialog">
+        </activity>
     </application>
 
 </manifest>
