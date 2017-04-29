@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,6 +25,7 @@ public class ShowCategories extends AppCompatActivity {
     DatabaseReference databaseReference;
     CategoriesAdapter categoriesAdapter;
     ListView lv;
+    String adm_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +38,8 @@ public class ShowCategories extends AppCompatActivity {
         lv = (ListView) findViewById(R.id.listview_cat);
         progressDialog = new ProgressDialog(this);
 
+        Bundle extras = getIntent().getExtras();
+        adm_id = extras.getString("admin_id");
 
         //displaying progress dialog while fetching images
         progressDialog.setMessage("Please wait...");
@@ -56,9 +58,9 @@ public class ShowCategories extends AppCompatActivity {
                     String name = child.child("name").getValue().toString();
                     String color = child.child("color").getValue().toString();
                     String admin_id = child.child("admin_id").getValue().toString();
-                    Category c = new Category(uid,name, color, admin_id);
+                    Category c = new Category(uid, name, color, admin_id);
 
-                    if (FirebaseAuth.getInstance().getCurrentUser().getUid().equals(admin_id)) {
+                    if (adm_id.equals(admin_id)) {
                         data.add(c);
                     }
                 }
@@ -94,13 +96,12 @@ public class ShowCategories extends AppCompatActivity {
                                            final int index, long arg3) {
 
                 Bundle dataBundle = new Bundle();
-                dataBundle.putString("id_cat", data.get(index).getId());
-                dataBundle.putString("name_cat", data.get(index).getName());
-                dataBundle.putString("color_cat", data.get(index).getColor());
-                Intent i = new Intent(ShowCategories.this, SelectHowToDo.class);
+                dataBundle.putString("iD_cat", data.get(index).getId());
+                dataBundle.putString("na_cat", data.get(index).getName());
+                dataBundle.putString("col_cat", data.get(index).getColor());
+                Intent i = new Intent(ShowCategories.this, EditCategory.class);
                 i.putExtras(dataBundle);
                 startActivity(i);
-
                 return true;
             }
         });
@@ -109,12 +110,14 @@ public class ShowCategories extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Bundle dataBundle = new Bundle();
+                dataBundle.putString("adminn_id", adm_id);
                 Intent i = new Intent(ShowCategories.this, AddCategory.class);
+                i.putExtras(dataBundle);
                 startActivity(i);
             }
         });
     }
-
 
 
 }

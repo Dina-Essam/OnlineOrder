@@ -10,7 +10,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -18,6 +17,7 @@ public class AddCategory extends AppCompatActivity {
 
     Button Btn_add_category;
     EditText Input_category_name;
+    String adm_id;
     private SeekBar red;
     private SeekBar green;
     private SeekBar blue;
@@ -43,6 +43,9 @@ public class AddCategory extends AppCompatActivity {
         Btn_add_category = (Button) findViewById(R.id.btn_add_category);
         Input_category_name = (EditText) findViewById(R.id.input_category_name);
 
+        Bundle extras = getIntent().getExtras();
+        adm_id = extras.getString("adminn_id");
+
         red = (SeekBar) findViewById(R.id.red);
         green = (SeekBar) findViewById(R.id.green);
         blue = (SeekBar) findViewById(R.id.blue);
@@ -65,7 +68,7 @@ public class AddCategory extends AppCompatActivity {
 
                     String s = mDatabase.push().getKey();
 
-                    Category c = new Category(s, Input_category_name.getText().toString(), finColor, FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    Category c = new Category(s, Input_category_name.getText().toString(), finColor, adm_id);
 
                     mDatabase.child("categoriesAdmin").child(s).setValue(c);
 

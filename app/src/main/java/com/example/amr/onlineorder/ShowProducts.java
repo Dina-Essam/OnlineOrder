@@ -119,7 +119,6 @@ public class ShowProducts extends AppCompatActivity {
                         Intent i = new Intent(ShowProducts.this, EditProduct.class);
                         i.putExtras(dataBundle);
                         startActivity(i);
-                        finish();
                     }
                 })
         );
