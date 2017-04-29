@@ -38,6 +38,7 @@ public class SelectHowtoDoProduct extends AppCompatActivity {
                 Intent i = new Intent(SelectHowtoDoProduct.this, EditProduct.class);
                 i.putExtras(dataBundle);
                 startActivity(i);
+                finish();
             }
         });
         delete.setOnClickListener(new View.OnClickListener() {
@@ -46,8 +47,7 @@ public class SelectHowtoDoProduct extends AppCompatActivity {
 
                 RemovePro(id_pro);
                 Toast.makeText(getApplicationContext(), "Deleted Successfully", Toast.LENGTH_SHORT).show();
-                finish();
-                startActivity(getIntent());
+
             }
         });
     }

@@ -39,6 +39,7 @@ public class SelectHowToDo extends AppCompatActivity {
                 Intent i = new Intent(SelectHowToDo.this, EditCategory.class);
                 i.putExtras(dataBundle);
                 startActivity(i);
+                finish();
             }
         });
         delete.setOnClickListener(new View.OnClickListener() {
@@ -47,8 +48,7 @@ public class SelectHowToDo extends AppCompatActivity {
 
                 RemoveCat(id_cat);
                 Toast.makeText(getApplicationContext(), "Deleted Successfully", Toast.LENGTH_SHORT).show();
-                finish();
-                startActivity(getIntent());
+
             }
         });
     }

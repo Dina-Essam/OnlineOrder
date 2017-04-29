@@ -51,18 +51,9 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
 
         Glide.with(context).load(upload.getUrl()).into(holder.imageView);
 
-//        holder.imageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(context, upload.getName(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
-        holder.imageView.setOnLongClickListener(new View.OnLongClickListener() {
-
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View v) {
-
+            public void onClick(View v) {
                 Bundle dataBundle = new Bundle();
                 dataBundle.putString("id_pro", upload.getId());
                 dataBundle.putString("name_pro", upload.getName());
@@ -71,9 +62,18 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
                 Intent i = new Intent(context, SelectHowtoDoProduct.class);
                 i.putExtras(dataBundle);
                 context.startActivity(i);
-                return true;
             }
         });
+
+//        holder.imageView.setOnLongClickListener(new View.OnLongClickListener() {
+//
+//            @Override
+//            public boolean onLongClick(View v) {
+//
+//
+//                return true;
+//            }
+//        });
 //
 //        holder.textViewName.setOnClickListener(new View.OnClickListener() {
 //            @Override
