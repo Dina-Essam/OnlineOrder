@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "74069206412",
+    "firebase_url": "https://onlineorder-79dbc.firebaseio.com",
+    "project_id": "onlineorder-79dbc",
+    "storage_bucket": "onlineorder-79dbc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:74069206412:android:233f470a6bad170e",
+        "android_client_info": {
+          "package_name": "com.example.amr.onlineorder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "74069206412-fci3u845ats65902649d7c4nau4f4h50.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAH1TG1lCh9HZu4yBrxBmFyuLARCz7vkqY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

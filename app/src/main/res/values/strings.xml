@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">OnlineOrder</string>
+    <string name="title_activity_show_categories">ShowCategories</string>
+    <string name="title_activity_show_products">ShowProducts</string>
+    <string name="UpdateCheck">Update</string>
+    <string name="DeleteCheck">Delete</string>
+</resources>

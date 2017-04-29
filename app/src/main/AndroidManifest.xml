@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.amr.onlineorder">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/order3"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".StartActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".RegisterAsAdmin" />
+        <activity android:name=".LoginAsAdmin" />
+        <activity android:name=".RegisterAsUser" />
+        <activity android:name=".LoginAsUser" />
+        <activity
+            android:name=".ShowCategories"
+            android:label="Categories" />
+        <activity android:name=".AddCategory" />
+        <activity android:name=".EditCategory" />
+        <activity
+            android:name=".ShowProducts"
+            android:label="Products" />
+        <activity android:name=".AddProduct" />
+        <activity android:name=".EditProduct" />
+        <activity android:name=".ForgetPassword" />
+        <activity android:name=".MainAdmin" />
+        <activity
+            android:name=".SelectHowToDo"
+            android:label="What do you want ?"
+            android:theme="@style/Base.Theme.AppCompat.Light.Dialog"></activity>
+        <activity android:name=".SelectHowtoDoProduct"></activity>
+    </application>
+
+</manifest>
