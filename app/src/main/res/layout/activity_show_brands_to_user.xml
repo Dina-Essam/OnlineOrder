@@ -1,33 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_show_brands_to_user"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F0EFEF"
     android:orientation="vertical"
     tools:context="com.example.amr.onlineorder.show_brands_to_user">
 
-
-
     <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/toolbar2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:background="@color/black_overlay"
-        app:title="Brands"
-        android:id="@+id/toolbar2"
+        android:background="#000000"
         android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:titleTextColor="@color/Swirl"/>
+        android:titleTextColor="@color/Swirl"
+        app:title="Brands"
+        app:titleTextColor="#ffffff" />
 
 
     <ListView
+        android:id="@+id/listview_brands"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/listview_brands">
+        android:layout_height="match_parent">
 
     </ListView>
-
 
 
 </LinearLayout>

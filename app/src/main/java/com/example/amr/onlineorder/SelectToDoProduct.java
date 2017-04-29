@@ -10,15 +10,17 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class SelectHowtoDoProduct extends AppCompatActivity {
-
+public class SelectToDoProduct extends AppCompatActivity {
     Button edit, delete;
     String id_pro, name_pro, price_pro, image_pro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_howto_do_product);
+        setContentView(R.layout.activity_select_how_to_do);
+
+        edit = (Button) findViewById(R.id.editpro);
+        delete = (Button) findViewById(R.id.deletepro);
 
         Bundle extras = getIntent().getExtras();
         id_pro = extras.getString("id_pro");
@@ -35,7 +37,7 @@ public class SelectHowtoDoProduct extends AppCompatActivity {
                 dataBundle.putString("na_pro", name_pro);
                 dataBundle.putString("pri_pro", price_pro);
                 dataBundle.putString("img_pro", image_pro);
-                Intent i = new Intent(SelectHowtoDoProduct.this, EditProduct.class);
+                Intent i = new Intent(SelectToDoProduct.this, EditProduct.class);
                 i.putExtras(dataBundle);
                 startActivity(i);
                 finish();
@@ -45,14 +47,16 @@ public class SelectHowtoDoProduct extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                RemovePro(id_pro);
+                RemoveCat(id_pro);
                 Toast.makeText(getApplicationContext(), "Deleted Successfully", Toast.LENGTH_SHORT).show();
+                finish();
+                startActivity(getIntent());
 
             }
         });
     }
 
-    public void RemovePro(String id) {
+    public void RemoveCat(String id) {
 
         FirebaseDatabase mFirebaseInstance = FirebaseDatabase.getInstance();
 

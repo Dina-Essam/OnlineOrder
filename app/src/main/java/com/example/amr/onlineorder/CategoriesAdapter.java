@@ -11,10 +11,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by Amr on 26/08/2016.
- */
-
 public class CategoriesAdapter extends BaseAdapter {
     public Context context;
     public ArrayList<Category> texts;

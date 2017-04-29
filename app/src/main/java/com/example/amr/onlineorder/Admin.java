@@ -12,7 +12,6 @@ public class Admin extends Person implements Serializable {
 
     String url;
 
-
     public String getUrl() {
         return url;
     }

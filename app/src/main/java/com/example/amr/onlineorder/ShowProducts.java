@@ -15,7 +15,6 @@ import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -85,7 +84,7 @@ public class ShowProducts extends AppCompatActivity {
                     String price = child.child("price").getValue().toString();
                     String url = child.child("url").getValue().toString();
                     String category_id = child.child("category_id").getValue().toString();
-                    Product c = new Product(uid,name, price, url, category_id);
+                    Product c = new Product(uid, name, price, url, category_id);
 
                     if (cat_id.equals(category_id)) {
                         uploads.add(c);
@@ -107,6 +106,23 @@ public class ShowProducts extends AppCompatActivity {
                 progressDialog.dismiss();
             }
         });
+        recyclerView.addOnItemTouchListener(
+                new RecyclerItemClickListener(ShowProducts.this, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+
+                        Bundle dataBundle = new Bundle();
+                        dataBundle.putString("iD_pro", uploads.get(position).getId());
+                        dataBundle.putString("na_pro", uploads.get(position).getName());
+                        dataBundle.putString("pri_pro", uploads.get(position).getPrice());
+                        dataBundle.putString("img_pro", uploads.get(position).getUrl());
+                        Intent i = new Intent(ShowProducts.this, EditProduct.class);
+                        i.putExtras(dataBundle);
+                        startActivity(i);
+                        finish();
+                    }
+                })
+        );
     }
 
     /**
