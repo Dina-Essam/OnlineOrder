@@ -1,5 +1,6 @@
 package com.example.amr.onlineorder;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,7 @@ public class MainAdmin extends AppCompatActivity {
     Button CMS, OnlineOrder, ShowUser, Logout;
     DatabaseReference databaseReference;
     String id_admin = "";
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,13 +31,18 @@ public class MainAdmin extends AppCompatActivity {
         ShowUser = (Button) findViewById(R.id.showuser);
         Logout = (Button) findViewById(R.id.logout);
 
+        progressDialog = new ProgressDialog(this);
+        //displaying progress dialog while fetching images
+        progressDialog.setMessage("Please wait...");
+        progressDialog.show();
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference();
         databaseReference.child("admins").addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
+                progressDialog.dismiss();
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
 
                 for (DataSnapshot child : children) {
