@@ -42,6 +42,7 @@
             android:name=".show_categories_to_user"
             android:label="Categories" />
         <activity android:name=".MainAdmin" />
+        <activity android:name=".show_products_to_user"></activity>
     </application>
 
 </manifest>

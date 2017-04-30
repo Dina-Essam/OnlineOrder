@@ -102,7 +102,7 @@ public class show_categories_to_user extends AppCompatActivity {
                 /** send it to product activity
                  * h8yar l userlogin 34an ywdeni 3l Products lma tt3ml
                  */
-                Intent GOTOproduct = new Intent(show_categories_to_user.this, show_brands_to_user.class);
+                Intent GOTOproduct = new Intent(show_categories_to_user.this, show_products_to_user.class);
 
                 Bundle bundle = new Bundle();
                 //bundle.putSerializable("USER", Theone);
