@@ -96,11 +96,21 @@ public class ShowCategories extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> arg0, View v,
                                            final int index, long arg3) {
 
+//                Bundle dataBundle = new Bundle();
+//                dataBundle.putString("iD_cat", data.get(index).getId());
+//                dataBundle.putString("na_cat", data.get(index).getName());
+//                dataBundle.putString("col_cat", data.get(index).getColor());
+//                Intent i = new Intent(ShowCategories.this, EditCategory.class);
+//                i.putExtras(dataBundle);
+//                startActivity(i);
                 Bundle dataBundle = new Bundle();
-                dataBundle.putString("iD_cat", data.get(index).getId());
-                dataBundle.putString("na_cat", data.get(index).getName());
-                dataBundle.putString("col_cat", data.get(index).getColor());
-                Intent i = new Intent(ShowCategories.this, EditCategory.class);
+                dataBundle.putString("bundlee", "category");
+
+                dataBundle.putString("i_cat", data.get(index).getId());
+                dataBundle.putString("n_cat", data.get(index).getName());
+                dataBundle.putString("c_cat", data.get(index).getColor());
+
+                Intent i = new Intent(ShowCategories.this, Dialoglist.class);
                 i.putExtras(dataBundle);
                 startActivity(i);
                 return true;

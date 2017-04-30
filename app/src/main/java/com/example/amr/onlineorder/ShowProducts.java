@@ -42,7 +42,7 @@ public class ShowProducts extends AppCompatActivity {
     //list to hold all the uploaded images
     private List<Product> uploads;
 
-    String cat_id, cat_color,adminnn_id;
+    String cat_id, cat_color, adminnn_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,14 +112,24 @@ public class ShowProducts extends AppCompatActivity {
                     @Override
                     public void onItemClick(View view, int position) {
 
+//                        Bundle dataBundle = new Bundle();
+//                        dataBundle.putString("iD_pro", uploads.get(position).getId());
+//                        dataBundle.putString("na_pro", uploads.get(position).getName());
+//                        dataBundle.putString("pri_pro", uploads.get(position).getPrice());
+//                        dataBundle.putString("img_pro", uploads.get(position).getUrl());
+//                        Intent i = new Intent(ShowProducts.this, EditProduct.class);
+//                        i.putExtras(dataBundle);
+//                        startActivity(i);
                         Bundle dataBundle = new Bundle();
-                        dataBundle.putString("iD_pro", uploads.get(position).getId());
-                        dataBundle.putString("na_pro", uploads.get(position).getName());
-                        dataBundle.putString("pri_pro", uploads.get(position).getPrice());
-                        dataBundle.putString("img_pro", uploads.get(position).getUrl());
-                        Intent i = new Intent(ShowProducts.this, EditProduct.class);
+                        dataBundle.putString("bundlee", "product");
+                        dataBundle.putString("i_pro", uploads.get(position).getId());
+                        dataBundle.putString("n_pro", uploads.get(position).getName());
+                        dataBundle.putString("p_pro", uploads.get(position).getPrice());
+                        dataBundle.putString("im_pro", uploads.get(position).getUrl());
+                        Intent i = new Intent(ShowProducts.this, Dialoglist.class);
                         i.putExtras(dataBundle);
                         startActivity(i);
+
                     }
                 })
         );

@@ -87,7 +87,15 @@ public class EditProduct extends AppCompatActivity {
                 if (price.getText().toString().isEmpty()) {
                     price.setError("Please Enter Price");
                 } else {
-                    uploadFile();
+                    if (imageurl.isEmpty()) {
+                        imageurl = image_pro;
+                        updatePro(namee.getText().toString(), price.getText().toString(), imageurl, id_pro);
+                        Toast.makeText(EditProduct.this, "Updated Successfully", Toast.LENGTH_SHORT).show();
+                        finish();
+                    } else {
+                        uploadFile();
+                    }
+
                 }
 
             }
@@ -132,7 +140,7 @@ public class EditProduct extends AppCompatActivity {
                     imageurl = taskSnapshot.getDownloadUrl().toString();
 
                     updatePro(namee.getText().toString(), price.getText().toString(), imageurl, id_pro);
-                    Toast.makeText(EditProduct.this, "Edit Successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditProduct.this, "Updated Successfully", Toast.LENGTH_SHORT).show();
                     finish();
                 }
             }).addOnFailureListener(new OnFailureListener() {

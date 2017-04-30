@@ -36,6 +36,10 @@
         <activity android:name=".EditProduct" />
         <activity android:name=".ForgetPassword" />
         <activity android:name=".MainAdmin" />
+        <activity android:name=".Dialoglist"
+            android:label="What do you want ?"
+            android:theme="@style/Base.Theme.AppCompat.Light.Dialog">
+        </activity>
     </application>
 
 </manifest>
