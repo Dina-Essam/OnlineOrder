@@ -7,6 +7,11 @@ import java.io.Serializable;
 @IgnoreExtraProperties
 public class Category implements Serializable {
     String id;
+
+    public String getId() {
+        return id;
+    }
+
     String name;
     String color;
     String Admin_id;
@@ -19,10 +24,6 @@ public class Category implements Serializable {
         this.name = name;
         this.color = color;
         Admin_id = admin_id;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public String getName() {

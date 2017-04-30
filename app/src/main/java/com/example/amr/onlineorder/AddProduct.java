@@ -21,7 +21,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,6 +47,7 @@ public class AddProduct extends AppCompatActivity {
     DatabaseReference databaseReference;
     //firebase objects
     String imageurl = "";
+    String adminnnn_id;
     private StorageReference storageReference;
 
     @Override
@@ -57,6 +57,9 @@ public class AddProduct extends AppCompatActivity {
 
         name_cat = new ArrayList<>();
         id_cat = new ArrayList<>();
+
+        Bundle extras = getIntent().getExtras();
+        adminnnn_id = extras.getString("adminnnn_id");
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference();
@@ -74,7 +77,7 @@ public class AddProduct extends AppCompatActivity {
                     String name = child.child("name").getValue().toString();
                     String admin_id = child.child("admin_id").getValue().toString();
 
-                    if (FirebaseAuth.getInstance().getCurrentUser().getUid().equals(admin_id)) {
+                    if (adminnnn_id.equals(admin_id)) {
                         name_cat.add(name);
                         id_cat.add(uid);
                     }

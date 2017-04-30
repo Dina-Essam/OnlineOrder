@@ -83,6 +83,7 @@ public class ShowCategories extends AppCompatActivity {
                 Bundle dataBundle = new Bundle();
                 dataBundle.putString("cat_id", data.get(position).getId());
                 dataBundle.putString("cat_color", data.get(position).getColor());
+                dataBundle.putString("adminnn_id", adm_id);
                 Intent i = new Intent(ShowCategories.this, ShowProducts.class);
                 i.putExtras(dataBundle);
                 startActivity(i);

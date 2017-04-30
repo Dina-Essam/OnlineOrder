@@ -42,7 +42,7 @@ public class ShowProducts extends AppCompatActivity {
     //list to hold all the uploaded images
     private List<Product> uploads;
 
-    String cat_id, cat_color;
+    String cat_id, cat_color,adminnn_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +59,7 @@ public class ShowProducts extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         cat_id = extras.getString("cat_id");
         cat_color = extras.getString("cat_color");
+        adminnn_id = extras.getString("adminnn_id");
 
         progressDialog = new ProgressDialog(this);
 
@@ -177,7 +178,10 @@ public class ShowProducts extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int a = item.getItemId();
         if (a == R.id.add) {
+            Bundle dataBundle = new Bundle();
+            dataBundle.putString("adminnnn_id", adminnn_id);
             Intent intent = new Intent(getApplicationContext(), AddProduct.class);
+            intent.putExtras(dataBundle);
             startActivity(intent);
             return true;
         }

@@ -53,7 +53,7 @@ public class show_brands_to_user extends AppCompatActivity {
                 /** send it to category activity
                  * h8yar l userlogin 34an ywdeni 3l category lma tt3ml
                  */
-                Intent GOTOCategory = new Intent(show_brands_to_user.this, show_categories_to_user.class);
+                Intent GOTOCategory = new Intent(show_brands_to_user.this, LoginAsUser.class);
 
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("BRAND", Brands.get(position));
@@ -107,6 +107,7 @@ public class show_brands_to_user extends AppCompatActivity {
         });
 
     }
+
 
     /**
      * Adapter

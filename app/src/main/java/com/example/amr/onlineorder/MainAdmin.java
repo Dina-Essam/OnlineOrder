@@ -13,13 +13,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-
 public class MainAdmin extends AppCompatActivity {
 
     Button CMS, OnlineOrder, ShowUser, Logout;
     DatabaseReference databaseReference;
-    ArrayList<String> id_admin;
+    String id_admin = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +28,6 @@ public class MainAdmin extends AppCompatActivity {
         OnlineOrder = (Button) findViewById(R.id.onlineorder);
         ShowUser = (Button) findViewById(R.id.showuser);
         Logout = (Button) findViewById(R.id.logout);
-        id_admin = new ArrayList<>();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference();
@@ -41,13 +38,12 @@ public class MainAdmin extends AppCompatActivity {
 
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
 
-                id_admin.clear();
                 for (DataSnapshot child : children) {
                     String uid = child.getKey();
                     String email = child.child("email").getValue().toString();
 
                     if (FirebaseAuth.getInstance().getCurrentUser().getEmail().equals(email)) {
-                        id_admin.add(uid);
+                        id_admin = uid;
                     }
                 }
             }
@@ -63,7 +59,7 @@ public class MainAdmin extends AppCompatActivity {
             public void onClick(View v) {
 
                 Bundle dataBundle = new Bundle();
-                dataBundle.putString("admin_id", id_admin.get(0));
+                dataBundle.putString("admin_id", id_admin);
                 Intent i = new Intent(MainAdmin.this, ShowCategories.class);
                 i.putExtras(dataBundle);
                 startActivity(i);
