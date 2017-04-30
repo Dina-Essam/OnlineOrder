@@ -35,6 +35,19 @@ public class LoginAsUser extends AppCompatActivity {
 
         btn_login = (Button) findViewById(R.id.btn_login_user);
 
+
+        if(firebaseAuth.getCurrentUser() != null)
+        {
+            /**
+             * h3ml function bt3ml save ll 7aga
+             */
+
+            Toast.makeText(this, "you are log in already",Toast.LENGTH_SHORT).show();
+            GoMainPage();
+
+        }
+
+
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,7 +68,11 @@ public class LoginAsUser extends AppCompatActivity {
 
                                     if (task.isSuccessful()) {
                                         Toast.makeText(LoginAsUser.this, "Login successful", Toast.LENGTH_LONG).show();
-                                    } else {
+                                        GoMainPage();
+
+
+                                    }
+                                    else {
                                         Log.e("ERROR", task.getException().toString());
                                         Toast.makeText(LoginAsUser.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                                     }
@@ -74,5 +91,11 @@ public class LoginAsUser extends AppCompatActivity {
     public void ForgetUser(View view) {
         Intent i = new Intent(LoginAsUser.this, ForgetPassword.class);
         startActivity(i);
+    }
+
+    private void GoMainPage()
+    {
+        Intent userLog=new Intent(LoginAsUser.this,show_brands_to_user.class);
+        startActivity(userLog);
     }
 }

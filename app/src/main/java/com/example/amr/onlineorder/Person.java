@@ -2,8 +2,10 @@ package com.example.amr.onlineorder;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.io.Serializable;
+
 @IgnoreExtraProperties
-public abstract class Person {
+public abstract class Person implements Serializable {
     String id;
     String name;
     String email;
@@ -16,6 +18,10 @@ public abstract class Person {
         this.email = email;
         this.phone = phone;
         this.address = address;
+    }
+    public Person()
+    {
+
     }
 
     public String getId() {

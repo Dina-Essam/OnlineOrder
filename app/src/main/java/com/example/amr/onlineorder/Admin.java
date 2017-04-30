@@ -11,6 +11,10 @@ import java.io.Serializable;
 public class Admin extends Person implements Serializable {
 
     String url;
+    public Admin()
+    {
+
+    }
 
     public String getUrl() {
         return url;

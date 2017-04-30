@@ -1,7 +1,9 @@
 package com.example.amr.onlineorder;
 
 import android.annotation.TargetApi;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -28,8 +30,9 @@ import java.util.Locale;
 
 public class show_categories_to_user extends AppCompatActivity {
 
+    private ProgressDialog progressDialog;
     ListView viewAllBrands;
-    String Brandinit;
+    Admin Brandinit;
     DatabaseReference databaseReference;
     ArrayList<Category> categoryList;
 
@@ -41,13 +44,17 @@ public class show_categories_to_user extends AppCompatActivity {
 
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
-        Brandinit = (String) bundle.getSerializable("BRAND");
+        Brandinit = (Admin) bundle.getSerializable("BRAND");
+        categoryList = new ArrayList<>();
+        viewAllBrands = (ListView) findViewById(R.id.listview_categories);
+        progressDialog = new ProgressDialog(this);
 
 
+        progressDialog.setMessage("Please wait...");
+        progressDialog.show();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference();
-        viewAllBrands = (ListView) findViewById(R.id.listview_categories);
-        categoryList = new ArrayList<>();
+
 
 
         /**
@@ -58,22 +65,21 @@ public class show_categories_to_user extends AppCompatActivity {
         databaseReference.child("categoriesAdmin").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
+                progressDialog.dismiss();
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
                 categoryList.clear();
-                for (DataSnapshot child : children) {
-
-                    String id = child.child("id").getValue().toString();
+                for (DataSnapshot child : children)
+                {
+                    String uid = child.getKey();
                     String name = child.child("name").getValue().toString();
-                    String admin_id = child.child("admin_id").getValue().toString();
                     String color = child.child("color").getValue().toString();
-                    Category c = new Category(id, name, color, admin_id);
+                    String admin_id = child.child("admin_id").getValue().toString();
+                    Category c = new Category(uid, name, color, admin_id);
 
-                    if (Brandinit == c.Admin_id) {
-
+                    if (Brandinit.getId().equals(admin_id))
+                    {
                         categoryList.add(c);
                     }
-
                 }
 
                 CustomAdapter myAdapter = new CustomAdapter(categoryList);
@@ -94,9 +100,9 @@ public class show_categories_to_user extends AppCompatActivity {
 
 
                 /** send it to product activity
-                 * h8yar l userlogin 34an ywdeni 3l category lma tt3ml
+                 * h8yar l userlogin 34an ywdeni 3l Products lma tt3ml
                  */
-                Intent GOTOproduct = new Intent(show_categories_to_user.this, show_brands_to_user.class);
+                Intent GOTOproduct = new Intent(show_categories_to_user.this, show_products_to_user.class);
 
                 Bundle bundle = new Bundle();
                 //bundle.putSerializable("USER", Theone);
@@ -143,14 +149,11 @@ public class show_categories_to_user extends AppCompatActivity {
             View view1 = linflater.inflate(R.layout.row_category, null);
 
             /**
-             * blwen l category
+             * blwen l category w bzher 2sm l Product
              */
             LinearLayout layoutcat = (LinearLayout) view1.findViewById(R.id.layoutcat);
-            layoutcat.setBackground(Drawable.createFromPath(categoryArrayList.get(position).getColor()));
-
+            layoutcat.setBackgroundColor(Color.parseColor(categoryArrayList.get(position).getColor()));
             TextView bname = (TextView) view1.findViewById(R.id.category_name_show_user);
-
-
             bname.setText(categoryArrayList.get(position).getName());
 
 

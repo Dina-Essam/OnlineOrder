@@ -1,8 +1,8 @@
 package com.example.amr.onlineorder;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,6 +43,10 @@ public class show_brands_to_user extends AppCompatActivity {
 
         FillBrandsList();
 
+
+
+
+
         /**
          * When Click On any Brand
          */
@@ -53,12 +58,12 @@ public class show_brands_to_user extends AppCompatActivity {
                 /** send it to category activity
                  * h8yar l userlogin 34an ywdeni 3l category lma tt3ml
                  */
-                Intent GOTOCategory = new Intent(show_brands_to_user.this, LoginAsUser.class);
-
+                Intent GOTOCategory = new Intent(show_brands_to_user.this, show_categories_to_user.class);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("BRAND", Brands.get(position));
+                bundle.putSerializable("BRAND",Brands.get(position));
                 GOTOCategory.putExtras(bundle);
                 startActivity(GOTOCategory);
+
             }
         });
 
@@ -73,9 +78,9 @@ public class show_brands_to_user extends AppCompatActivity {
          */
 
 
-        Brands = new ArrayList<>();
+        Brands=new ArrayList<>();
 
-        databaseReference.child("admins").addValueEventListener(new ValueEventListener() {
+         databaseReference.child("admins").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -109,16 +114,19 @@ public class show_brands_to_user extends AppCompatActivity {
     }
 
 
+
+
     /**
      * Adapter
      */
-    class CustomAdapter extends BaseAdapter {
+    class CustomAdapter extends BaseAdapter
+    {
         ArrayList<Admin> listofbrands;
 
-        CustomAdapter(ArrayList<Admin> listofbrands) {
-            this.listofbrands = listofbrands;
+        CustomAdapter(ArrayList<Admin> listofbrands)
+        {
+            this.listofbrands=listofbrands;
         }
-
         @Override
         public int getCount() {
             return listofbrands.size();
@@ -136,11 +144,11 @@ public class show_brands_to_user extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            LayoutInflater linflater = getLayoutInflater();
-            View view1 = linflater.inflate(R.layout.row_brands, null);
+            LayoutInflater linflater=getLayoutInflater();
+            View view1=linflater.inflate(R.layout.row_brands,null);
 
-            TextView bname = (TextView) view1.findViewById(R.id.brand_name_show_user);
-            ImageView bimage = (ImageView) view1.findViewById(R.id.brand_image_show_user);
+            TextView bname=(TextView)view1.findViewById(R.id.brand_name_show_user);
+            ImageView bimage=(ImageView)view1.findViewById(R.id.brand_image_show_user);
 
             bname.setText(listofbrands.get(position).getName());
             Glide.with(getApplicationContext()).load(listofbrands.get(position).getUrl()).into(bimage);
@@ -148,6 +156,7 @@ public class show_brands_to_user extends AppCompatActivity {
             return view1;
         }
     }
+
 
 
 }
