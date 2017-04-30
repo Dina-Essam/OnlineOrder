@@ -36,6 +36,21 @@
         <activity android:name=".EditProduct" />
         <activity android:name=".ForgetPassword" />
         <activity android:name=".MainAdmin" />
+<<<<<<< HEAD
+=======
+        <activity
+            android:name=".SelectHowToDo"
+            android:label="What do you want ?"
+            android:theme="@style/Base.Theme.AppCompat.Light.Dialog"></activity>
+        <activity
+            android:name=".SelectHowtoDoProduct"
+            android:label="What do you want ?"
+            android:theme="@style/Base.Theme.AppCompat.Light.Dialog"></activity>
+        <activity
+            android:name=".show_brands_to_user"
+            android:label="Brandes" />
+        <activity android:name=".show_categories_to_user"></activity>
+>>>>>>> fed1cb3cf40e1815cadbb28056c4f0d9229fb548
     </application>
 
 </manifest>
