@@ -55,7 +55,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
     class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView textViewName, price;
-        public ImageView imageView, overflow;
+        public ImageView imageView;
         RelativeLayout RL;
 
         public ViewHolder(View itemView) {
@@ -64,7 +64,6 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
             textViewName = (TextView) itemView.findViewById(R.id.name_product);
             price = (TextView) itemView.findViewById(R.id.price_product);
             imageView = (ImageView) itemView.findViewById(R.id.image_product);
-            overflow = (ImageView) itemView.findViewById(R.id.overflow);
             RL = (RelativeLayout) itemView.findViewById(R.id.mainRelativeLayout);
         }
     }

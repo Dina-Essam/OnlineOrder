@@ -26,7 +26,7 @@ public class EditCategory extends AppCompatActivity {
     private static int color_red = 0;
     private static int color_green = 0;
     private static int color_blue = 0;
-    private static String finColor;
+    private static String finColor = "";
     private DatabaseReference mFirebaseDatabase;
     private FirebaseDatabase mFirebaseInstance;
     private static final int sizeOfIntInHalfBytes = 8;
@@ -72,8 +72,12 @@ public class EditCategory extends AppCompatActivity {
                 if (Input_category_name.getText().toString().isEmpty()) {
                     Input_category_name.setError("Please Enter Category Name");
                 } else {
-                    updateCat(Input_category_name.getText().toString(), finColor, cat_id);
-                    Toast.makeText(EditCategory.this, "Added Successfully", Toast.LENGTH_SHORT).show();
+                    if (finColor.isEmpty()) {
+                        updateCat(Input_category_name.getText().toString(), col_cat, cat_id);
+                    } else {
+                        updateCat(Input_category_name.getText().toString(), finColor, cat_id);
+                    }
+                    Toast.makeText(EditCategory.this, "Updated Successfully", Toast.LENGTH_SHORT).show();
                     finish();
                 }
             }

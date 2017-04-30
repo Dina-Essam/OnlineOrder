@@ -62,6 +62,10 @@ public class AddCategory extends AppCompatActivity {
                 if (Input_category_name.getText().toString().isEmpty()) {
                     Input_category_name.setError("Please Enter Category Name");
                 } else {
+                    if (finColor.isEmpty()) {
+                        finColor = "#000000";
+                    }
+
                     DatabaseReference mDatabase;
 
                     mDatabase = FirebaseDatabase.getInstance().getReference();
