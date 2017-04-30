@@ -191,8 +191,10 @@ public class show_products_to_user extends AppCompatActivity{
                      * lma 2dos kter 3l card da l hy7sal
                      */
 
-                    Toast.makeText(context, "you are log in already",Toast.LENGTH_SHORT).show();
-
+                    countertxtview.setText("0 Item Selected");
+                    is_in_action=true;
+                    adapter.notifyDataSetChanged();
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                     return true;
                 }
             });
