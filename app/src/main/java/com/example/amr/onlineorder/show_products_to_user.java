@@ -193,6 +193,7 @@ public class show_products_to_user extends AppCompatActivity{
                     /**
                      * lma 2dos kter 3l card da l hy7sal
                      */
+                    toolbar.inflateMenu(R.menu.create_order);
                     countertxtview.setText("0 Item Selected");
                     is_in_action=true;
                     adapter.notifyDataSetChanged();
