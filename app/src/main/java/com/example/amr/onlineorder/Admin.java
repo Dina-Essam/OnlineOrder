@@ -4,6 +4,10 @@ import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.io.Serializable;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
+import java.io.Serializable;
+
 /**
  * Created by Amr on 24/04/2017.
  */
@@ -11,10 +15,12 @@ import java.io.Serializable;
 public class Admin extends Person implements Serializable {
 
     String url;
+
     public Admin()
     {
 
     }
+
 
     public String getUrl() {
         return url;
@@ -28,4 +34,12 @@ public class Admin extends Person implements Serializable {
         super(id, name, email, phone, address);
         this.url = url;
     }
+
+
+
+
+
+
+
+
 }

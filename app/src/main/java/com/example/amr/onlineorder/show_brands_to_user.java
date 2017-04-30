@@ -80,7 +80,7 @@ public class show_brands_to_user extends AppCompatActivity {
 
         Brands=new ArrayList<>();
 
-         databaseReference.child("admins").addValueEventListener(new ValueEventListener() {
+        databaseReference.child("admins").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -93,13 +93,13 @@ public class show_brands_to_user extends AppCompatActivity {
                     String phone = child.child("phone").getValue().toString();
                     String address = child.child("address").getValue().toString();
                     String url = child.child("url").getValue().toString();
-                    Admin c = new Admin(id, name, email, phone, address, url);
+                    Admin c = new Admin(id,name,email,phone,address,url);
 
                     Brands.add(c);
 
                 }
 
-                CustomAdapter myAdapter = new CustomAdapter(Brands);
+                CustomAdapter myAdapter=new CustomAdapter(Brands);
                 viewAllBrands.setAdapter(myAdapter);
 
 
