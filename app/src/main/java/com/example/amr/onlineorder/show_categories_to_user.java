@@ -31,19 +31,31 @@ public class show_categories_to_user extends AppCompatActivity {
     Admin Brandinit;
     DatabaseReference databaseReference;
     ArrayList<Category> categoryList;
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_categories_to_user);
 
         Bundle bundle = new Bundle();
+<<<<<<< HEAD
         bundle = getIntent().getExtras();
         Brandinit = (Admin) bundle.getSerializable("BRAND");
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference();
         viewAllBrands = (ListView) findViewById(R.id.listview_categories);
         categoryList = new ArrayList<>();
+=======
+        bundle=getIntent().getExtras();
+        Brandinit=(Admin)bundle.getSerializable("BRAND");
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        databaseReference = database.getReference();
+        viewAllBrands = (ListView) findViewById(R.id.listview_categories);
+        categoryList=new ArrayList<>();
+>>>>>>> origin/master
 
 
         /**
@@ -51,21 +63,37 @@ public class show_categories_to_user extends AppCompatActivity {
          */
 
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> origin/master
         databaseReference.child("categoriesAdmin").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
                 categoryList.clear();
+<<<<<<< HEAD
                 for (DataSnapshot child : children) {
+=======
+                for (DataSnapshot child : children)
+                {
+>>>>>>> origin/master
 
                     String id = child.child("id").getValue().toString();
                     String name = child.child("name").getValue().toString();
                     String admin_id = child.child("admin_id").getValue().toString();
                     String color = child.child("color").getValue().toString();
+<<<<<<< HEAD
                     Category c = new Category(id, name, color, admin_id);
 
                     if (Brandinit.getId() == c.Admin_id) {
+=======
+                    Category c = new Category(id,name,color,admin_id);
+
+                    if(Brandinit.getId()== c.Admin_id) {
+>>>>>>> origin/master
 
                         categoryList.add(c);
                     }
@@ -84,6 +112,10 @@ public class show_categories_to_user extends AppCompatActivity {
         });
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
         viewAllBrands.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -96,7 +128,11 @@ public class show_categories_to_user extends AppCompatActivity {
 
                 Bundle bundle = new Bundle();
                 //bundle.putSerializable("USER", Theone);
+<<<<<<< HEAD
                 bundle.putSerializable("CATEGORY", categoryList.get(position));
+=======
+                bundle.putSerializable("CATEGORY",categoryList.get(position));
+>>>>>>> origin/master
                 GOTOproduct.putExtras(bundle);
                 startActivity(GOTOproduct);
             }
@@ -109,6 +145,7 @@ public class show_categories_to_user extends AppCompatActivity {
     /**
      * Adapter
      */
+<<<<<<< HEAD
     class CustomAdapter extends BaseAdapter {
         ArrayList<Category> categoryArrayList = new ArrayList<>();
 
@@ -116,6 +153,16 @@ public class show_categories_to_user extends AppCompatActivity {
             this.categoryArrayList = listofbrands;
         }
 
+=======
+    class CustomAdapter extends BaseAdapter
+    {
+        ArrayList<Category> categoryArrayList=new ArrayList<>();
+
+        CustomAdapter(ArrayList<Category> listofbrands)
+        {
+            this.categoryArrayList =listofbrands;
+        }
+>>>>>>> origin/master
         @Override
         public int getCount() {
             return categoryArrayList.size();
@@ -134,16 +181,28 @@ public class show_categories_to_user extends AppCompatActivity {
         @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
+<<<<<<< HEAD
             LayoutInflater linflater = getLayoutInflater();
             View view1 = linflater.inflate(R.layout.row_category, null);
+=======
+            LayoutInflater linflater=getLayoutInflater();
+            View view1=linflater.inflate(R.layout.row_category,null);
+>>>>>>> origin/master
 
             /**
              * blwen l category
              */
+<<<<<<< HEAD
             LinearLayout layoutcat = (LinearLayout) view1.findViewById(R.id.layoutcat);
             layoutcat.setBackground(Drawable.createFromPath(categoryArrayList.get(position).getColor()));
 
             TextView bname = (TextView) view1.findViewById(R.id.category_name_show_user);
+=======
+            LinearLayout layoutcat=(LinearLayout)view1.findViewById(R.id.layoutcat);
+            layoutcat.setBackground(Drawable.createFromPath(categoryArrayList.get(position).getColor()));
+
+            TextView bname=(TextView)view1.findViewById(R.id.category_name_show_user);
+>>>>>>> origin/master
 
 
             bname.setText(categoryArrayList.get(position).getName());
@@ -154,4 +213,9 @@ public class show_categories_to_user extends AppCompatActivity {
     }
 
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> origin/master
 }
