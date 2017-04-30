@@ -43,6 +43,8 @@ public class show_products_to_user extends AppCompatActivity{
     private RecyclerView.Adapter adapter;
     DatabaseReference databaseReference;
     ArrayList<Product> products;
+    ArrayList<Product> selected_items;
+    int Counter=0;
 
 
     Boolean is_in_action=false;
@@ -74,6 +76,7 @@ public class show_products_to_user extends AppCompatActivity{
 
         progressDialog = new ProgressDialog(this);
 
+        selected_items=new ArrayList<>();
         products=new ArrayList<>();
 
 
@@ -156,7 +159,7 @@ public class show_products_to_user extends AppCompatActivity{
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(final ViewHolder holder, int position) {
 
             final Product upload = productArrayList.get(position);
 
@@ -190,12 +193,40 @@ public class show_products_to_user extends AppCompatActivity{
                     /**
                      * lma 2dos kter 3l card da l hy7sal
                      */
-
                     countertxtview.setText("0 Item Selected");
                     is_in_action=true;
                     adapter.notifyDataSetChanged();
                     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                     return true;
+                }
+            });
+
+            holder.overflow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    /**
+                     * lma b3ml select 3la 7aga
+                     */
+
+                    if(holder.overflow.isChecked())
+                    {
+
+                        selected_items.add(upload);
+                        Counter=Counter+1;
+                        countertxtview.setText(Counter+" Item Selected");
+                    }
+                    /**
+                     * lma y4el l checked b2a
+                     */
+
+                    else
+                    {
+                        selected_items.remove(upload);
+                        Counter=Counter-1;
+                        countertxtview.setText(Counter+" Item Selected");
+
+                    }
                 }
             });
 
