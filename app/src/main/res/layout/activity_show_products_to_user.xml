@@ -10,15 +10,8 @@
 
 
 
-    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:background="@color/black_overlay"
-        app:title="Products"
-        android:id="@+id/categoriesToolBar"
-        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:titleTextColor="@color/Swirl"/>
+    <include
+        layout="@layout/toolbar_layout"/>
 
 
     <android.support.v7.widget.RecyclerView

@@ -107,6 +107,9 @@ public class ShowProducts extends AppCompatActivity {
                 progressDialog.dismiss();
             }
         });
+
+
+
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(ShowProducts.this, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
