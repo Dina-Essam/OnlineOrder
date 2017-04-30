@@ -31,25 +31,24 @@ public class show_categories_to_user extends AppCompatActivity {
     Admin Brandinit;
     DatabaseReference databaseReference;
     ArrayList<Category> categoryList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_categories_to_user);
 
         Bundle bundle = new Bundle();
-        bundle=getIntent().getExtras();
-        Brandinit=(Admin)bundle.getSerializable("BRAND");
+        bundle = getIntent().getExtras();
+        Brandinit = (Admin) bundle.getSerializable("BRAND");
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference();
         viewAllBrands = (ListView) findViewById(R.id.listview_categories);
-        categoryList=new ArrayList<>();
+        categoryList = new ArrayList<>();
 
 
         /**
          * Fill List from Brand
          */
-
-
 
 
         databaseReference.child("categoriesAdmin").addValueEventListener(new ValueEventListener() {
@@ -58,16 +57,15 @@ public class show_categories_to_user extends AppCompatActivity {
 
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
                 categoryList.clear();
-                for (DataSnapshot child : children)
-                {
+                for (DataSnapshot child : children) {
 
                     String id = child.child("id").getValue().toString();
                     String name = child.child("name").getValue().toString();
                     String admin_id = child.child("admin_id").getValue().toString();
                     String color = child.child("color").getValue().toString();
-                    Category c = new Category(id,name,color,admin_id);
+                    Category c = new Category(id, name, color, admin_id);
 
-                    if(Brandinit.getId()== c.Admin_id) {
+                    if (Brandinit.getId() == c.Admin_id) {
 
                         categoryList.add(c);
                     }
@@ -86,7 +84,6 @@ public class show_categories_to_user extends AppCompatActivity {
         });
 
 
-
         viewAllBrands.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -99,7 +96,7 @@ public class show_categories_to_user extends AppCompatActivity {
 
                 Bundle bundle = new Bundle();
                 //bundle.putSerializable("USER", Theone);
-                bundle.putSerializable("CATEGORY",categoryList.get(position));
+                bundle.putSerializable("CATEGORY", categoryList.get(position));
                 GOTOproduct.putExtras(bundle);
                 startActivity(GOTOproduct);
             }
@@ -112,14 +109,13 @@ public class show_categories_to_user extends AppCompatActivity {
     /**
      * Adapter
      */
-    class CustomAdapter extends BaseAdapter
-    {
-        ArrayList<Category> categoryArrayList=new ArrayList<>();
+    class CustomAdapter extends BaseAdapter {
+        ArrayList<Category> categoryArrayList = new ArrayList<>();
 
-        CustomAdapter(ArrayList<Category> listofbrands)
-        {
-            this.categoryArrayList =listofbrands;
+        CustomAdapter(ArrayList<Category> listofbrands) {
+            this.categoryArrayList = listofbrands;
         }
+
         @Override
         public int getCount() {
             return categoryArrayList.size();
@@ -138,16 +134,16 @@ public class show_categories_to_user extends AppCompatActivity {
         @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            LayoutInflater linflater=getLayoutInflater();
-            View view1=linflater.inflate(R.layout.row_category,null);
+            LayoutInflater linflater = getLayoutInflater();
+            View view1 = linflater.inflate(R.layout.row_category, null);
 
             /**
              * blwen l category
              */
-            LinearLayout layoutcat=(LinearLayout)view1.findViewById(R.id.layoutcat);
+            LinearLayout layoutcat = (LinearLayout) view1.findViewById(R.id.layoutcat);
             layoutcat.setBackground(Drawable.createFromPath(categoryArrayList.get(position).getColor()));
 
-            TextView bname=(TextView)view1.findViewById(R.id.category_name_show_user);
+            TextView bname = (TextView) view1.findViewById(R.id.category_name_show_user);
 
 
             bname.setText(categoryArrayList.get(position).getName());
@@ -156,8 +152,6 @@ public class show_categories_to_user extends AppCompatActivity {
             return view1;
         }
     }
-
-
 
 
 }

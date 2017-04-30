@@ -108,7 +108,6 @@ public class show_brands_to_user extends AppCompatActivity {
 
     }
 
-
     /**
      * Adapter
      */
