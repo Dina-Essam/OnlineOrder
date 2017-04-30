@@ -22,14 +22,21 @@ public class Order implements Serializable {
 
     }
 
-    public Order(String userID,String id ,String brand_id ,Double totalPrice,String state ,ArrayList<Product> items)
+    public Order(String userID,String id ,String brand_id,String state ,ArrayList<Product> items)
     {
         this.id=id;
         this.userID=userID;
         this.brand_id=brand_id;
-        this.totalPrice=totalPrice;
         this.state=state;
         this.items=items;
+        totalPrice=0.0;
+
+        for(int i=0 ;i<items.size();i++)
+        {
+            totalPrice += Integer.parseInt(items.get(i).getPrice());
+        }
+
+
     }
 
     public String getUserID() {
