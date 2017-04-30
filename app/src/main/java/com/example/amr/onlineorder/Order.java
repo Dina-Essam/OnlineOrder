@@ -1,6 +1,5 @@
 package com.example.amr.onlineorder;
 
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +16,21 @@ public class Order implements Serializable {
     Double totalPrice;
     String state;
     ArrayList<Product> items;
+
+    public Order()
+    {
+
+    }
+
+    public Order(String userID,String id ,String brand_id ,Double totalPrice,String state ,ArrayList<Product> items)
+    {
+        this.id=id;
+        this.userID=userID;
+        this.brand_id=brand_id;
+        this.totalPrice=totalPrice;
+        this.state=state;
+        this.items=items;
+    }
 
     public String getUserID() {
         return userID;
