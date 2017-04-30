@@ -2,15 +2,18 @@ package com.example.amr.onlineorder;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +23,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
@@ -30,7 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class show_products_to_user extends AppCompatActivity {
+public class show_products_to_user extends AppCompatActivity{
 
 
     private ProgressDialog progressDialog;
@@ -40,10 +44,20 @@ public class show_products_to_user extends AppCompatActivity {
     DatabaseReference databaseReference;
     ArrayList<Product> products;
 
+
+    Boolean is_in_action=false;
+    TextView countertxtview;
+    Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_products_to_user);
+
+
+        toolbar=(Toolbar)findViewById(R.id.toolbar_make_order);
+        setSupportActionBar(toolbar);
+        countertxtview=(TextView)findViewById(R.id.countertxt);
 
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
@@ -93,7 +107,7 @@ public class show_products_to_user extends AppCompatActivity {
                     }
                 }
 
-                adapter = new ProductsAdapter(getApplicationContext(),products);
+                adapter = new ProductsAdapter(show_products_to_user.this , products);
 
                 //adding adapter to recyclerview
                 RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(show_products_to_user.this, 2);
@@ -111,48 +125,38 @@ public class show_products_to_user extends AppCompatActivity {
         });
 
 
-
-
-
-
-
-
-
-
-
-
-
     }
-
-
-
 
 
     /**
      * Adapter
      */
 
-    public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHolder> {
 
+    public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHolder>{
+
+        ArrayList<Product> productArrayList=new ArrayList<>();
+        show_products_to_user activity;
         private Context context;
-        ArrayList<Product> productArrayList;
 
-        public ProductsAdapter(Context context, ArrayList<Product> productArrayList) {
-            this.productArrayList = productArrayList;
-            this.context = context;
-
+        public ProductsAdapter(Context context, ArrayList<Product> productArrayList)
+        {
+            this.productArrayList=productArrayList;
+            this.context=context;
+            activity=(show_products_to_user) context;
         }
+
+
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.product_card, parent, false);
-            ViewHolder viewHolder = new ViewHolder(v);
-            return viewHolder;
+            View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.product_card,parent,false);
+            ViewHolder holder=new ViewHolder(view,activity);
+            return holder;
         }
 
         @Override
-        public void onBindViewHolder(final ViewHolder holder, int position) {
+        public void onBindViewHolder(ViewHolder holder, int position) {
 
             final Product upload = productArrayList.get(position);
 
@@ -163,8 +167,35 @@ public class show_products_to_user extends AppCompatActivity {
             holder.textViewName.setText(upload.getName());
             holder.price.setText(upload.getPrice().toString()+" LE");
             Glide.with(getApplicationContext()).load(upload.getUrl()).into(holder.imageView);
+            if(!is_in_action)
+            {
+                holder.overflow.setVisibility(View.GONE);
+
+            }
+            else
+            {
+                holder.overflow.setVisibility(View.VISIBLE);
+                holder.overflow.setChecked(false);
+            }
 
 
+
+
+
+            holder.cardView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+
+
+                    /**
+                     * lma 2dos kter 3l card da l hy7sal
+                     */
+
+                    Toast.makeText(context, "you are log in already",Toast.LENGTH_SHORT).show();
+
+                    return true;
+                }
+            });
 
 
         }
@@ -174,15 +205,16 @@ public class show_products_to_user extends AppCompatActivity {
             return productArrayList.size();
         }
 
-        class ViewHolder extends RecyclerView.ViewHolder {
+        public class ViewHolder extends RecyclerView.ViewHolder{
 
             public TextView textViewName, price;
             public ImageView imageView;
             public CheckBox overflow;
-
+            CardView cardView;
             RelativeLayout RL;
+            show_products_to_user activity;
 
-            public ViewHolder(View itemView) {
+            public ViewHolder(View itemView,show_products_to_user activity) {
                 super(itemView);
 
                 textViewName = (TextView) itemView.findViewById(R.id.product_name);
@@ -190,10 +222,21 @@ public class show_products_to_user extends AppCompatActivity {
                 imageView = (ImageView) itemView.findViewById(R.id.image_product);
                 overflow = (CheckBox) itemView.findViewById(R.id.overflow);
                 RL = (RelativeLayout) itemView.findViewById(R.id.layoutproduct);
+                this.activity=activity;
+                cardView=(CardView)itemView.findViewById(R.id.card_view_product_to_user);
             }
+
+
+
+
         }
 
+
+
+
     }
+
+
 
 
     public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
