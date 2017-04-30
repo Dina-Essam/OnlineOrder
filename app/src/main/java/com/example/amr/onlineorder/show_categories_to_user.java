@@ -29,7 +29,7 @@ import java.util.Locale;
 public class show_categories_to_user extends AppCompatActivity {
 
     ListView viewAllBrands;
-    String Brandinit;
+    Admin Brandinit;
     DatabaseReference databaseReference;
     ArrayList<Category> categoryList;
 
@@ -41,7 +41,7 @@ public class show_categories_to_user extends AppCompatActivity {
 
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
-        Brandinit = (String) bundle.getSerializable("BRAND");
+        Brandinit = (Admin) bundle.getSerializable("BRAND");
 
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -69,7 +69,7 @@ public class show_categories_to_user extends AppCompatActivity {
                     String color = child.child("color").getValue().toString();
                     Category c = new Category(id, name, color, admin_id);
 
-                    if (Brandinit == c.Admin_id) {
+                    if (Brandinit.id == c.Admin_id) {
 
                         categoryList.add(c);
                     }
