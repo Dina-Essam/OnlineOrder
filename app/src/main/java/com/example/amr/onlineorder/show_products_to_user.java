@@ -16,6 +16,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -26,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,6 +45,7 @@ public class show_products_to_user extends AppCompatActivity{
     private RecyclerView.Adapter adapter;
     DatabaseReference databaseReference;
     ArrayList<Product> products;
+    User theone;
     ArrayList<Product> selected_items;
     int Counter=0;
 
@@ -72,6 +75,7 @@ public class show_products_to_user extends AppCompatActivity{
         Bundle bundle = new Bundle();
         bundle=getIntent().getExtras();
         cate=(Category) bundle.getSerializable("CATEGORY");
+        theone = (User) bundle.getSerializable("User");
 
 
         progressDialog = new ProgressDialog(this);
@@ -130,6 +134,42 @@ public class show_products_to_user extends AppCompatActivity{
 
     }
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId()==R.id.orderbtn)
+        {
+            /**
+             * h3ml save ll order ll database
+             */
+
+            DatabaseReference mDatabase;
+
+            mDatabase = FirebaseDatabase.getInstance().getReference();
+
+            String id = mDatabase.push().getKey();
+
+            Order send_order = new Order(theone.id,id,cate.Admin_id,"Padding",selected_items);
+
+            mDatabase.child("Order").child(id).setValue(send_order);
+
+            Toast.makeText(show_products_to_user.this, "Order Send Successfully", Toast.LENGTH_SHORT).show();
+
+
+            is_in_action=false;
+            toolbar.getMenu().clear();
+            adapter.notifyDataSetChanged();
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            countertxtview.setText("Products");
+            Counter=0;
+            selected_items.clear();
+
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
 
     /**
      * Adapter
@@ -193,6 +233,7 @@ public class show_products_to_user extends AppCompatActivity{
                     /**
                      * lma 2dos kter 3l card da l hy7sal
                      */
+
                     toolbar.inflateMenu(R.menu.create_order);
                     countertxtview.setText("0 Item Selected");
                     is_in_action=true;
@@ -271,8 +312,6 @@ public class show_products_to_user extends AppCompatActivity{
     }
 
 
-
-
     public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
 
         private int spanCount;
@@ -313,9 +352,5 @@ public class show_products_to_user extends AppCompatActivity{
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
-
-
-
-
 
 }

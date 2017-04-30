@@ -1,5 +1,6 @@
 package com.example.amr.onlineorder;
 
+
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ public class show_brands_to_user extends AppCompatActivity {
 
 
     ListView viewAllBrands;
+    User theone;
     DatabaseReference databaseReference;
     ArrayList<Admin> Brands;
 
@@ -33,6 +35,10 @@ public class show_brands_to_user extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_brands_to_user);
+
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();
+        theone = (User) bundle.getSerializable("User");
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference();
@@ -61,6 +67,7 @@ public class show_brands_to_user extends AppCompatActivity {
                 Intent GOTOCategory = new Intent(show_brands_to_user.this, show_categories_to_user.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("BRAND",Brands.get(position));
+                bundle.putSerializable("User",theone);
                 GOTOCategory.putExtras(bundle);
                 startActivity(GOTOCategory);
 
