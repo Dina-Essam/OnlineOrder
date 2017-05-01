@@ -214,9 +214,7 @@ public class ShowProducts extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (names.size() >= 1) {
-            getMenuInflater().inflate(R.menu.delete_menu, menu);
-        }
+        getMenuInflater().inflate(R.menu.delete_menu, menu);
         return true;
     }
 
