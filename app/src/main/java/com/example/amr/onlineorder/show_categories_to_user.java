@@ -13,8 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -145,7 +145,7 @@ public class show_categories_to_user extends AppCompatActivity {
             /**
              * blwen l category w bzher 2sm l Product
              */
-            LinearLayout layoutcat = (LinearLayout) view1.findViewById(R.id.layoutcat);
+            RelativeLayout layoutcat = (RelativeLayout) view1.findViewById(R.id.layoutcat);
             layoutcat.setBackgroundColor(Color.parseColor(categoryArrayList.get(position).getColor()));
             TextView bname = (TextView) view1.findViewById(R.id.category_name_show_user);
             bname.setText(categoryArrayList.get(position).getName());

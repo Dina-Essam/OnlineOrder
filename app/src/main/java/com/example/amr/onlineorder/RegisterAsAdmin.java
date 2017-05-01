@@ -142,7 +142,7 @@ public class RegisterAsAdmin extends AppCompatActivity {
                     progressDialog.dismiss();
 
                     //displaying success toast
-                    Toast.makeText(getApplicationContext(), "File Uploaded ", Toast.LENGTH_LONG).show();
+             //       Toast.makeText(getApplicationContext(), "File Uploaded ", Toast.LENGTH_LONG).show();
 
                     imageurl = taskSnapshot.getDownloadUrl().toString();
 
@@ -152,7 +152,7 @@ public class RegisterAsAdmin extends AppCompatActivity {
 
                     String s = mDatabase.push().getKey();
 
-                    Admin a = new Admin(s,name.getText().toString(), email.getText().toString(), phone.getText().toString(), address.getText().toString(), imageurl);
+                    Admin a = new Admin(s, name.getText().toString(), email.getText().toString(), phone.getText().toString(), address.getText().toString(), imageurl);
 
                     mDatabase.child("admins").child(s).setValue(a);
 

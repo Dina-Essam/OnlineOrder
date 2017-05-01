@@ -1,11 +1,15 @@
 package com.example.amr.onlineorder;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -26,6 +30,7 @@ public class ShowCategories extends AppCompatActivity {
     CategoriesAdapter categoriesAdapter;
     ListView lv;
     String adm_id;
+    ArrayList<String> names, ids;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +38,9 @@ public class ShowCategories extends AppCompatActivity {
         setContentView(R.layout.activity_show_categories);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        ids = new ArrayList<>();
+        names = new ArrayList<>();
 
         data = new ArrayList<>();
         lv = (ListView) findViewById(R.id.listview_cat);
@@ -53,6 +61,8 @@ public class ShowCategories extends AppCompatActivity {
                 progressDialog.dismiss();
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
                 data.clear();
+                names.clear();
+                ids.clear();
                 for (DataSnapshot child : children) {
                     String uid = child.getKey();
                     String name = child.child("name").getValue().toString();
@@ -61,6 +71,8 @@ public class ShowCategories extends AppCompatActivity {
                     Category c = new Category(uid, name, color, admin_id);
 
                     if (adm_id.equals(admin_id)) {
+                        ids.add(uid);
+                        names.add(name);
                         data.add(c);
                     }
                 }
@@ -96,23 +108,27 @@ public class ShowCategories extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> arg0, View v,
                                            final int index, long arg3) {
 
-//                Bundle dataBundle = new Bundle();
-//                dataBundle.putString("iD_cat", data.get(index).getId());
-//                dataBundle.putString("na_cat", data.get(index).getName());
-//                dataBundle.putString("col_cat", data.get(index).getColor());
-//                Intent i = new Intent(ShowCategories.this, EditCategory.class);
-//                i.putExtras(dataBundle);
-//                startActivity(i);
-                Bundle dataBundle = new Bundle();
-                dataBundle.putString("bundlee", "category");
+                AlertDialog.Builder builder = new AlertDialog.Builder(ShowCategories.this);
+                builder.setMessage("Do you want to update " + data.get(index).getName() + " ?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Bundle dataBundle = new Bundle();
+                                dataBundle.putString("iD_cat", data.get(index).getId());
+                                dataBundle.putString("na_cat", data.get(index).getName());
+                                dataBundle.putString("col_cat", data.get(index).getColor());
+                                Intent i = new Intent(ShowCategories.this, EditCategory.class);
+                                i.putExtras(dataBundle);
+                                startActivity(i);
+                            }
+                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Nothing
+                    }
+                });
+                AlertDialog d = builder.create();
+                d.setTitle("Are you sure");
+                d.show();
 
-                dataBundle.putString("i_cat", data.get(index).getId());
-                dataBundle.putString("n_cat", data.get(index).getName());
-                dataBundle.putString("c_cat", data.get(index).getColor());
-
-                Intent i = new Intent(ShowCategories.this, Dialoglist.class);
-                i.putExtras(dataBundle);
-                startActivity(i);
                 return true;
             }
         });
@@ -130,5 +146,25 @@ public class ShowCategories extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.delete_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int a = item.getItemId();
+
+        if (a == R.id.delete) {
+
+            Intent intent = new Intent(ShowCategories.this, DeleteCategory.class);
+            intent.putStringArrayListExtra("idsCatlist", ids);
+            intent.putStringArrayListExtra("namesCatlist", names);
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 }

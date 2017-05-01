@@ -1,6 +1,8 @@
 package com.example.amr.onlineorder;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -89,10 +91,24 @@ public class MainAdmin extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getApplicationContext(), StartActivity.class);
-                startActivity(intent);
-                finish();
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainAdmin.this);
+                builder.setMessage("Do you want to logout ?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                FirebaseAuth.getInstance().signOut();
+                                Intent intent = new Intent(getApplicationContext(), StartActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Nothing
+                    }
+                });
+                AlertDialog d = builder.create();
+                d.setTitle("Are you sure");
+                d.show();
+
             }
         });
     }
