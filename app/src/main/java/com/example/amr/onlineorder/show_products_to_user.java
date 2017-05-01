@@ -185,7 +185,7 @@ public class show_products_to_user extends AppCompatActivity {
 
             String id = mDatabase.push().getKey();
 
-            Order send_order = new Order(id_admin, id, cate.Admin_id, "Padding", selected_items);
+            Order send_order = new Order(id_admin, id, cate.Admin_id, "Pending", selected_items);
 
             mDatabase.child("Order").child(id).setValue(send_order);
 
