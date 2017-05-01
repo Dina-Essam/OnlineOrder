@@ -15,6 +15,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginAsAdmin extends AppCompatActivity {
 
@@ -22,6 +27,9 @@ public class LoginAsAdmin extends AppCompatActivity {
     private EditText txtPwd;
     private FirebaseAuth firebaseAuth;
     Button btn_login;
+    DatabaseReference databaseReference;
+    String id_admin = "";
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +37,41 @@ public class LoginAsAdmin extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
 
         if (firebaseAuth.getCurrentUser() != null) {
-            startActivity(new Intent(LoginAsAdmin.this, MainAdmin.class));
-            finish();
+
+            progressDialog = new ProgressDialog(this);
+            //displaying progress dialog while fetching images
+            progressDialog.setMessage("Please wait...");
+            progressDialog.show();
+
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            databaseReference = database.getReference();
+            databaseReference.child("admins").addValueEventListener(new ValueEventListener() {
+
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    progressDialog.dismiss();
+                    Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+
+                    for (DataSnapshot child : children) {
+                        String uid = child.getKey();
+                        String email = child.child("email").getValue().toString();
+
+                        if (firebaseAuth.getCurrentUser().getEmail().equals(email)) {
+                            id_admin = uid;
+                        }
+                    }
+                    if (!id_admin.isEmpty()) {
+                        startActivity(new Intent(LoginAsAdmin.this, MainAdmin.class));
+                        finish();
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
         }
         setContentView(R.layout.activity_login_as_admin);
 
@@ -74,6 +115,7 @@ public class LoginAsAdmin extends AppCompatActivity {
             }
         });
     }
+
 
     public void GoRegisterAdmin(View view) {
         Intent i = new Intent(LoginAsAdmin.this, RegisterAsAdmin.class);

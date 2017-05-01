@@ -15,6 +15,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginAsUser extends AppCompatActivity {
 
@@ -22,10 +27,53 @@ public class LoginAsUser extends AppCompatActivity {
     private EditText txtPwd;
     private FirebaseAuth firebaseAuth;
     Button btn_login;
+    DatabaseReference databaseReference;
+    String id_admin = "";
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        if (firebaseAuth.getCurrentUser() != null) {
+
+            progressDialog = new ProgressDialog(this);
+            //displaying progress dialog while fetching images
+            progressDialog.setMessage("Please wait...");
+            progressDialog.show();
+
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            databaseReference = database.getReference();
+            databaseReference.child("users").addValueEventListener(new ValueEventListener() {
+
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    progressDialog.dismiss();
+                    Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+
+                    for (DataSnapshot child : children) {
+                        String uid = child.getKey();
+                        String email = child.child("email").getValue().toString();
+
+                        if (firebaseAuth.getCurrentUser().getEmail().equals(email)) {
+                            id_admin = uid;
+                        }
+                    }
+                    if (!id_admin.isEmpty()) {
+                        startActivity(new Intent(LoginAsUser.this, show_brands_to_user.class));
+                        finish();
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+        }
 
         setContentView(R.layout.activity_login_as_user);
 
@@ -34,19 +82,6 @@ public class LoginAsUser extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
 
         btn_login = (Button) findViewById(R.id.btn_login_user);
-
-
-        if(firebaseAuth.getCurrentUser() != null)
-        {
-            /**
-             * h3ml function bt3ml save ll 7aga
-             */
-
-            Toast.makeText(this, "you are log in already",Toast.LENGTH_SHORT).show();
-            GoMainPage();
-
-        }
-
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,9 +105,7 @@ public class LoginAsUser extends AppCompatActivity {
                                         Toast.makeText(LoginAsUser.this, "Login successful", Toast.LENGTH_LONG).show();
                                         GoMainPage();
 
-
-                                    }
-                                    else {
+                                    } else {
                                         Log.e("ERROR", task.getException().toString());
                                         Toast.makeText(LoginAsUser.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                                     }
@@ -82,6 +115,7 @@ public class LoginAsUser extends AppCompatActivity {
             }
         });
     }
+
 
     public void GoRegisterUser(View view) {
         Intent i = new Intent(LoginAsUser.this, RegisterAsUser.class);
@@ -93,9 +127,9 @@ public class LoginAsUser extends AppCompatActivity {
         startActivity(i);
     }
 
-    private void GoMainPage()
-    {
-        Intent userLog=new Intent(LoginAsUser.this,show_brands_to_user.class);
+    private void GoMainPage() {
+        Intent userLog = new Intent(LoginAsUser.this, show_brands_to_user.class);
         startActivity(userLog);
+        finish();
     }
 }

@@ -90,10 +90,9 @@ public class MainAdmin extends AppCompatActivity {
             public void onClick(View v) {
 
                 FirebaseAuth.getInstance().signOut();
-                finish();
                 Intent intent = new Intent(getApplicationContext(), StartActivity.class);
                 startActivity(intent);
-
+                finish();
             }
         });
     }
