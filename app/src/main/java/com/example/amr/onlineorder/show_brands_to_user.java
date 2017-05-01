@@ -95,12 +95,16 @@ public class show_brands_to_user extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
 
-        if (item.getItemId() == R.id.user_orders) {
+        if (item.getItemId() == R.id.user_orders)
+        {
 
             /**
-             * hn2lo l layout h3red feha l products bs hdelha l user id bundle
+             * hn2lo l layout h3red feha l Orders bs hdelha l user id bundle
              */
-        } else if (item.getItemId() == R.id.logout_user) {
+        Intent order =new Intent(show_brands_to_user.this,show_orders_to_user.class);
+            startActivity(order);
+        }
+        else if (item.getItemId() == R.id.logout_user) {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(show_brands_to_user.this);
             builder.setMessage("Do you want to logout ?")
