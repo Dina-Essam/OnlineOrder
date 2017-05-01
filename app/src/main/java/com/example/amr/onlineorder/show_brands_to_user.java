@@ -4,7 +4,11 @@ package com.example.amr.onlineorder;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -30,6 +34,9 @@ public class show_brands_to_user extends AppCompatActivity {
     User theone;
     DatabaseReference databaseReference;
     ArrayList<Admin> Brands;
+    Toolbar toolbar_for_user;
+    FirebaseAuth firebaseAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +48,11 @@ public class show_brands_to_user extends AppCompatActivity {
         theone = (User) bundle.getSerializable("User");
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+        firebaseAuth=FirebaseAuth.getInstance();
         databaseReference = database.getReference();
         viewAllBrands = (ListView) findViewById(R.id.listview_brands);
+        toolbar_for_user=(Toolbar)findViewById(R.id.toolbar_for_user);
+        setSupportActionBar(toolbar_for_user);
         /**
          * Function fill list of brands from database
          */
@@ -75,7 +85,47 @@ public class show_brands_to_user extends AppCompatActivity {
         });
 
 
+
+
+
+
+
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater=getMenuInflater();
+        menuInflater.inflate(R.menu.menu_user,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+
+
+        if(item.getItemId()==R.id.user_orders)
+        {
+
+            /**
+             * hn2lo l layout h3red feha l products bs hdelha l user id bundle
+             */
+        }
+        else if(item.getItemId()==R.id.logout_user)
+        {
+
+            firebaseAuth.signOut();
+            Intent logout=new Intent(show_brands_to_user.this,StartActivity.class);
+            startActivity(logout);
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
 
     private void FillBrandsList() {
 
