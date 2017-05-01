@@ -31,7 +31,6 @@ public class show_brands_to_user extends AppCompatActivity {
 
 
     ListView viewAllBrands;
-    User theone;
     DatabaseReference databaseReference;
     ArrayList<Admin> Brands;
     Toolbar toolbar_for_user;
@@ -45,7 +44,6 @@ public class show_brands_to_user extends AppCompatActivity {
 
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
-        theone = (User) bundle.getSerializable("User");
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         firebaseAuth=FirebaseAuth.getInstance();
@@ -77,7 +75,6 @@ public class show_brands_to_user extends AppCompatActivity {
                 Intent GOTOCategory = new Intent(show_brands_to_user.this, show_categories_to_user.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("BRAND",Brands.get(position));
-                bundle.putSerializable("User",theone);
                 GOTOCategory.putExtras(bundle);
                 startActivity(GOTOCategory);
 

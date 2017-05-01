@@ -26,8 +26,6 @@ public class LoginAsUser extends AppCompatActivity {
     private EditText txtEmailLogin;
     private EditText txtPwd;
     private FirebaseAuth firebaseAuth;
-    DatabaseReference databaseReference;
-    User theone;
     Button btn_login;
 
     @Override
@@ -39,7 +37,6 @@ public class LoginAsUser extends AppCompatActivity {
         txtEmailLogin = (EditText) findViewById(R.id.input_email_log_user);
         txtPwd = (EditText) findViewById(R.id.input_password_log_user);
         firebaseAuth = FirebaseAuth.getInstance();
-        theone=new User();
         btn_login = (Button) findViewById(R.id.btn_login_user);
 
 
@@ -103,44 +100,9 @@ public class LoginAsUser extends AppCompatActivity {
     private void GoMainPage()
     {
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference();
-
-
-        databaseReference.child("users").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-                for (DataSnapshot child : children)
-                {
-                    String uid = child.child("id").getValue().toString();
-                    String name = child.child("name").getValue().toString();
-                    String address = child.child("address").getValue().toString();
-                    String email = child.child("email").getValue().toString();
-                    String phone = child.child("phone").getValue().toString();
-                    User c= new User(uid,name,email,phone,address);
-                    if (firebaseAuth.getCurrentUser().getEmail()==c.getEmail())
-                    {
-                        theone=c;
-                    }
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-
-
 
 
         Intent userLog=new Intent(LoginAsUser.this,show_brands_to_user.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("User",theone);
-        userLog.putExtras(bundle);
         startActivity(userLog);
     }
 }

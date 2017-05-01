@@ -33,7 +33,6 @@ public class show_categories_to_user extends AppCompatActivity {
     private ProgressDialog progressDialog;
     ListView viewAllBrands;
     Admin Brandinit;
-    User theone;
     DatabaseReference databaseReference;
     ArrayList<Category> categoryList;
 
@@ -46,7 +45,6 @@ public class show_categories_to_user extends AppCompatActivity {
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
         Brandinit = (Admin) bundle.getSerializable("BRAND");
-        theone = (User) bundle.getSerializable("User");
         categoryList = new ArrayList<>();
         viewAllBrands = (ListView) findViewById(R.id.listview_categories);
         progressDialog = new ProgressDialog(this);
@@ -109,7 +107,6 @@ public class show_categories_to_user extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 //bundle.putSerializable("USER", Theone);
                 bundle.putSerializable("CATEGORY", categoryList.get(position));
-                bundle.putSerializable("User",theone);
                 GOTOproduct.putExtras(bundle);
                 startActivity(GOTOproduct);
             }

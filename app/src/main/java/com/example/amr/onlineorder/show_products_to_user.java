@@ -45,9 +45,11 @@ public class show_products_to_user extends AppCompatActivity{
     private RecyclerView.Adapter adapter;
     DatabaseReference databaseReference;
     ArrayList<Product> products;
-    User theone;
     ArrayList<Product> selected_items;
     int Counter=0;
+    DatabaseReference mData;
+    String id_admin = "";
+    private ProgressDialog mprogressDialog;
 
 
     Boolean is_in_action=false;
@@ -75,7 +77,7 @@ public class show_products_to_user extends AppCompatActivity{
         Bundle bundle = new Bundle();
         bundle=getIntent().getExtras();
         cate=(Category) bundle.getSerializable("CATEGORY");
-        theone = (User) bundle.getSerializable("User");
+
 
 
         progressDialog = new ProgressDialog(this);
@@ -132,6 +134,53 @@ public class show_products_to_user extends AppCompatActivity{
         });
 
 
+        /**
+         * User ID
+         */
+
+
+        mprogressDialog = new ProgressDialog(this);
+        //displaying progress dialog while fetching images
+        mprogressDialog.setMessage("Please wait...");
+        mprogressDialog.show();
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        mData = database.getReference();
+        mData.child("users").addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mprogressDialog.dismiss();
+                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+
+                for (DataSnapshot child : children) {
+                    String uid = child.getKey();
+                    String email = child.child("email").getValue().toString();
+
+                    if (FirebaseAuth.getInstance().getCurrentUser().getEmail().equals(email)) {
+                        id_admin = uid;
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
 
@@ -150,7 +199,7 @@ public class show_products_to_user extends AppCompatActivity{
 
             String id = mDatabase.push().getKey();
 
-            Order send_order = new Order(theone.id,id,cate.Admin_id,"Padding",selected_items);
+            Order send_order = new Order(id_admin,id,cate.Admin_id,"Padding",selected_items);
 
             mDatabase.child("Order").child(id).setValue(send_order);
 
