@@ -28,7 +28,7 @@ public class LoginAsUser extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     Button btn_login;
     DatabaseReference databaseReference;
-    String id_admin = "";
+    String id_user = "";
     private ProgressDialog progressDialog;
 
     @Override
@@ -58,10 +58,10 @@ public class LoginAsUser extends AppCompatActivity {
                         String email = child.child("email").getValue().toString();
 
                         if (firebaseAuth.getCurrentUser().getEmail().equals(email)) {
-                            id_admin = uid;
+                            id_user = uid;
                         }
                     }
-                    if (!id_admin.isEmpty()) {
+                    if (!id_user.isEmpty()) {
                         startActivity(new Intent(LoginAsUser.this, show_brands_to_user.class));
                         finish();
                     }
