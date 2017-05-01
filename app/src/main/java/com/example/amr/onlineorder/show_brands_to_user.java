@@ -1,6 +1,9 @@
 package com.example.amr.onlineorder;
 
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,13 +32,12 @@ import java.util.ArrayList;
 
 public class show_brands_to_user extends AppCompatActivity {
 
-
     ListView viewAllBrands;
     DatabaseReference databaseReference;
     ArrayList<Admin> Brands;
     Toolbar toolbar_for_user;
     FirebaseAuth firebaseAuth;
-
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,9 +102,23 @@ public class show_brands_to_user extends AppCompatActivity {
              */
         } else if (item.getItemId() == R.id.logout_user) {
 
-            firebaseAuth.signOut();
-            Intent logout = new Intent(show_brands_to_user.this, StartActivity.class);
-            startActivity(logout);
+            AlertDialog.Builder builder = new AlertDialog.Builder(show_brands_to_user.this);
+            builder.setMessage("Do you want to logout ?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            FirebaseAuth.getInstance().signOut();
+                            Intent intent = new Intent(getApplicationContext(), StartActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    // Nothing
+                }
+            });
+            AlertDialog d = builder.create();
+            d.setTitle("Are you sure");
+            d.show();
         }
 
 
@@ -117,13 +133,18 @@ public class show_brands_to_user extends AppCompatActivity {
          * Fill from Database
          */
 
+        progressDialog = new ProgressDialog(this);
+
+
+        progressDialog.setMessage("Please wait...");
+        progressDialog.show();
 
         Brands = new ArrayList<>();
 
         databaseReference.child("admins").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
+                progressDialog.dismiss();
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
                 Brands.clear();
                 for (DataSnapshot child : children) {

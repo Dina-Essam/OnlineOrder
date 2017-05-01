@@ -1,10 +1,13 @@
 package com.example.amr.onlineorder;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,8 +15,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.google.firebase.database.DataSnapshot;
@@ -109,33 +110,52 @@ public class ShowProducts extends AppCompatActivity {
         });
 
 
-
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(ShowProducts.this, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
-                    public void onItemClick(View view, int position) {
+                    public void onItemClick(View view, final int position) {
 
-//                        Bundle dataBundle = new Bundle();
-//                        dataBundle.putString("iD_pro", uploads.get(position).getId());
-//                        dataBundle.putString("na_pro", uploads.get(position).getName());
-//                        dataBundle.putString("pri_pro", uploads.get(position).getPrice());
-//                        dataBundle.putString("img_pro", uploads.get(position).getUrl());
-//                        Intent i = new Intent(ShowProducts.this, EditProduct.class);
-//                        i.putExtras(dataBundle);
-//                        startActivity(i);
-                        Bundle dataBundle = new Bundle();
-                        dataBundle.putString("bundlee", "product");
-                        dataBundle.putString("i_pro", uploads.get(position).getId());
-                        dataBundle.putString("n_pro", uploads.get(position).getName());
-                        dataBundle.putString("p_pro", uploads.get(position).getPrice());
-                        dataBundle.putString("im_pro", uploads.get(position).getUrl());
-                        Intent i = new Intent(ShowProducts.this, Dialoglist.class);
-                        i.putExtras(dataBundle);
-                        startActivity(i);
+                        final String idProd = uploads.get(position).getId();
+                        final String nameProd = uploads.get(position).getName();
+                        final String priceProd = uploads.get(position).getPrice();
+                        final String imageProd = uploads.get(position).getUrl();
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(ShowProducts.this);
+                        builder.setMessage("Do you want to update " + uploads.get(position).getName() + " ?")
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        Bundle dataBundle = new Bundle();
+                                        dataBundle.putString("iD_pro", idProd);
+                                        dataBundle.putString("na_pro", nameProd);
+                                        dataBundle.putString("pri_pro", priceProd);
+                                        dataBundle.putString("img_pro", imageProd);
+                                        Intent i = new Intent(ShowProducts.this, EditProduct.class);
+                                        i.putExtras(dataBundle);
+                                        startActivity(i);
+                                    }
+                                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // Nothing
+                            }
+                        });
+                        AlertDialog d = builder.create();
+                        d.setTitle("Are you sure");
+                        d.show();
 
                     }
                 })
         );
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab2);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle dataBundle = new Bundle();
+                dataBundle.putString("adminnnn_id", adminnn_id);
+                Intent intent = new Intent(getApplicationContext(), AddProduct.class);
+                intent.putExtras(dataBundle);
+                startActivity(intent);
+            }
+        });
     }
 
     /**
@@ -179,26 +199,6 @@ public class ShowProducts extends AppCompatActivity {
     private int dpToPx(int dp) {
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int a = item.getItemId();
-        if (a == R.id.add) {
-            Bundle dataBundle = new Bundle();
-            dataBundle.putString("adminnnn_id", adminnn_id);
-            Intent intent = new Intent(getApplicationContext(), AddProduct.class);
-            intent.putExtras(dataBundle);
-            startActivity(intent);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
 }

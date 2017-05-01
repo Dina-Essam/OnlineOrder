@@ -1,6 +1,8 @@
 package com.example.amr.onlineorder;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -96,23 +98,27 @@ public class ShowCategories extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> arg0, View v,
                                            final int index, long arg3) {
 
-//                Bundle dataBundle = new Bundle();
-//                dataBundle.putString("iD_cat", data.get(index).getId());
-//                dataBundle.putString("na_cat", data.get(index).getName());
-//                dataBundle.putString("col_cat", data.get(index).getColor());
-//                Intent i = new Intent(ShowCategories.this, EditCategory.class);
-//                i.putExtras(dataBundle);
-//                startActivity(i);
-                Bundle dataBundle = new Bundle();
-                dataBundle.putString("bundlee", "category");
+                AlertDialog.Builder builder = new AlertDialog.Builder(ShowCategories.this);
+                builder.setMessage("Do you want to update " + data.get(index).getName() + " ?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Bundle dataBundle = new Bundle();
+                                dataBundle.putString("iD_cat", data.get(index).getId());
+                                dataBundle.putString("na_cat", data.get(index).getName());
+                                dataBundle.putString("col_cat", data.get(index).getColor());
+                                Intent i = new Intent(ShowCategories.this, EditCategory.class);
+                                i.putExtras(dataBundle);
+                                startActivity(i);
+                            }
+                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Nothing
+                    }
+                });
+                AlertDialog d = builder.create();
+                d.setTitle("Are you sure");
+                d.show();
 
-                dataBundle.putString("i_cat", data.get(index).getId());
-                dataBundle.putString("n_cat", data.get(index).getName());
-                dataBundle.putString("c_cat", data.get(index).getColor());
-
-                Intent i = new Intent(ShowCategories.this, Dialoglist.class);
-                i.putExtras(dataBundle);
-                startActivity(i);
                 return true;
             }
         });

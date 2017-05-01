@@ -19,8 +19,7 @@ public abstract class Person implements Serializable {
         this.phone = phone;
         this.address = address;
     }
-    public Person()
-    {
+    public Person() {
 
     }
 
