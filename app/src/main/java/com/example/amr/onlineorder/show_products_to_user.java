@@ -16,6 +16,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,6 +65,7 @@ public class show_products_to_user extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar_make_order);
         setSupportActionBar(toolbar);
+
         countertxtview = (TextView) findViewById(R.id.countertxt);
 
 
@@ -170,6 +172,12 @@ public class show_products_to_user extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_to_check,menu);
+        return true;
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -194,12 +202,22 @@ public class show_products_to_user extends AppCompatActivity {
 
             is_in_action = false;
             toolbar.getMenu().clear();
+            toolbar.inflateMenu(R.menu.menu_to_check);
             adapter.notifyDataSetChanged();
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             countertxtview.setText("Products");
             Counter = 0;
             selected_items.clear();
 
+        }
+        else if(item.getItemId()==R.id.checked_order)
+        {
+            toolbar.getMenu().clear();
+            toolbar.inflateMenu(R.menu.create_order);
+            countertxtview.setText("0 Item Selected");
+            is_in_action = true;
+            adapter.notifyDataSetChanged();
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
 
@@ -250,25 +268,6 @@ public class show_products_to_user extends AppCompatActivity {
                 holder.overflow.setVisibility(View.VISIBLE);
                 holder.overflow.setChecked(false);
             }
-
-
-            holder.cardView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-
-
-                    /**
-                     * lma 2dos kter 3l card da l hy7sal
-                     */
-
-                    toolbar.inflateMenu(R.menu.create_order);
-                    countertxtview.setText("0 Item Selected");
-                    is_in_action = true;
-                    adapter.notifyDataSetChanged();
-                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                    return true;
-                }
-            });
 
             holder.overflow.setOnClickListener(new View.OnClickListener() {
                 @Override
