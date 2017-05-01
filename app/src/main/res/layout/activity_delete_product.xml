@@ -10,23 +10,23 @@
     tools:context="com.example.amr.onlineorder.DeleteProduct">
 
     <Spinner
+        android:id="@+id/spinnerProname"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/spinnerProname"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
     <Button
+        android:id="@+id/deletePro"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/spinnerProname"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:background="@color/DodgerBlue"
         android:padding="20dp"
         android:text="Delete"
         android:textAllCaps="false"
-        android:textSize="20dp"
-        android:id="@+id/deletePro"
-        android:layout_below="@+id/spinnerProname"
-        android:layout_centerHorizontal="true" />
+        android:textSize="20dp" />
 
 </RelativeLayout>

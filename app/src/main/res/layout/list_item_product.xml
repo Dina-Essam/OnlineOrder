@@ -13,9 +13,9 @@
         card_view:cardCornerRadius="@dimen/card_album_radius">
 
         <RelativeLayout
+            android:id="@+id/mainRelativeLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/mainRelativeLayout">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/image_product"

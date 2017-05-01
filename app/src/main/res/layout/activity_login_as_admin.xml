@@ -95,8 +95,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
                 android:layout_marginTop="10dp"
-                android:onClick="GoRegisterAdmin"
                 android:gravity="center"
+                android:onClick="GoRegisterAdmin"
                 android:text="No account yet ? Create one"
                 android:textSize="20dip" />
         </LinearLayout>

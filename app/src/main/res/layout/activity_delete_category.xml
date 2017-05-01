@@ -10,22 +10,22 @@
     tools:context="com.example.amr.onlineorder.DeleteCategory">
 
     <Spinner
+        android:id="@+id/spinnerCatname"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/spinnerCatname"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
     <Button
+        android:id="@+id/deleteCat"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/spinnerCatname"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:background="@color/DodgerBlue"
         android:padding="20dp"
         android:text="Delete"
         android:textAllCaps="false"
-        android:textSize="20dp"
-        android:id="@+id/deleteCat"
-        android:layout_below="@+id/spinnerCatname"
-        android:layout_centerHorizontal="true" />
+        android:textSize="20dp" />
 </RelativeLayout>
