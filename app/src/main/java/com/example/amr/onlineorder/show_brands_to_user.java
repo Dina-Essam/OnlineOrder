@@ -1,9 +1,14 @@
 package com.example.amr.onlineorder;
 
+
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -28,15 +33,24 @@ public class show_brands_to_user extends AppCompatActivity {
     ListView viewAllBrands;
     DatabaseReference databaseReference;
     ArrayList<Admin> Brands;
+    Toolbar toolbar_for_user;
+    FirebaseAuth firebaseAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_brands_to_user);
 
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+        firebaseAuth=FirebaseAuth.getInstance();
         databaseReference = database.getReference();
         viewAllBrands = (ListView) findViewById(R.id.listview_brands);
+        toolbar_for_user=(Toolbar)findViewById(R.id.toolbar_for_user);
+        setSupportActionBar(toolbar_for_user);
         /**
          * Function fill list of brands from database
          */
@@ -68,7 +82,47 @@ public class show_brands_to_user extends AppCompatActivity {
         });
 
 
+
+
+
+
+
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater=getMenuInflater();
+        menuInflater.inflate(R.menu.menu_user,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+
+
+        if(item.getItemId()==R.id.user_orders)
+        {
+
+            /**
+             * hn2lo l layout h3red feha l products bs hdelha l user id bundle
+             */
+        }
+        else if(item.getItemId()==R.id.logout_user)
+        {
+
+            firebaseAuth.signOut();
+            Intent logout=new Intent(show_brands_to_user.this,StartActivity.class);
+            startActivity(logout);
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
 
     private void FillBrandsList() {
 
@@ -80,7 +134,7 @@ public class show_brands_to_user extends AppCompatActivity {
 
         Brands=new ArrayList<>();
 
-         databaseReference.child("admins").addValueEventListener(new ValueEventListener() {
+        databaseReference.child("admins").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -93,13 +147,13 @@ public class show_brands_to_user extends AppCompatActivity {
                     String phone = child.child("phone").getValue().toString();
                     String address = child.child("address").getValue().toString();
                     String url = child.child("url").getValue().toString();
-                    Admin c = new Admin(id, name, email, phone, address, url);
+                    Admin c = new Admin(id,name,email,phone,address,url);
 
                     Brands.add(c);
 
                 }
 
-                CustomAdapter myAdapter = new CustomAdapter(Brands);
+                CustomAdapter myAdapter=new CustomAdapter(Brands);
                 viewAllBrands.setAdapter(myAdapter);
 
 
