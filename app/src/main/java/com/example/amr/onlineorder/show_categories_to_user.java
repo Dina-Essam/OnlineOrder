@@ -4,11 +4,10 @@ import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,7 +24,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class show_categories_to_user extends AppCompatActivity {
 
@@ -56,7 +53,6 @@ public class show_categories_to_user extends AppCompatActivity {
         databaseReference = database.getReference();
 
 
-
         /**
          * Fill List from Brand
          */
@@ -68,16 +64,14 @@ public class show_categories_to_user extends AppCompatActivity {
                 progressDialog.dismiss();
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
                 categoryList.clear();
-                for (DataSnapshot child : children)
-                {
+                for (DataSnapshot child : children) {
                     String uid = child.getKey();
                     String name = child.child("name").getValue().toString();
                     String color = child.child("color").getValue().toString();
                     String admin_id = child.child("admin_id").getValue().toString();
                     Category c = new Category(uid, name, color, admin_id);
 
-                    if (Brandinit.getId().equals(admin_id))
-                    {
+                    if (Brandinit.getId().equals(admin_id)) {
                         categoryList.add(c);
                     }
                 }

@@ -46,19 +46,16 @@ public class show_brands_to_user extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        firebaseAuth=FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = database.getReference();
         viewAllBrands = (ListView) findViewById(R.id.listview_brands);
-        toolbar_for_user=(Toolbar)findViewById(R.id.toolbar_for_user);
+        toolbar_for_user = (Toolbar) findViewById(R.id.toolbar_for_user);
         setSupportActionBar(toolbar_for_user);
         /**
          * Function fill list of brands from database
          */
 
         FillBrandsList();
-
-
-
 
 
         /**
@@ -74,7 +71,7 @@ public class show_brands_to_user extends AppCompatActivity {
                  */
                 Intent GOTOCategory = new Intent(show_brands_to_user.this, show_categories_to_user.class);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("BRAND",Brands.get(position));
+                bundle.putSerializable("BRAND", Brands.get(position));
                 GOTOCategory.putExtras(bundle);
                 startActivity(GOTOCategory);
 
@@ -82,18 +79,13 @@ public class show_brands_to_user extends AppCompatActivity {
         });
 
 
-
-
-
-
-
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater=getMenuInflater();
-        menuInflater.inflate(R.menu.menu_user,menu);
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_user, menu);
         return true;
     }
 
@@ -101,27 +93,21 @@ public class show_brands_to_user extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
 
-
-        if(item.getItemId()==R.id.user_orders)
-        {
+        if (item.getItemId() == R.id.user_orders) {
 
             /**
              * hn2lo l layout h3red feha l products bs hdelha l user id bundle
              */
-        }
-        else if(item.getItemId()==R.id.logout_user)
-        {
+        } else if (item.getItemId() == R.id.logout_user) {
 
             firebaseAuth.signOut();
-            Intent logout=new Intent(show_brands_to_user.this,StartActivity.class);
+            Intent logout = new Intent(show_brands_to_user.this, StartActivity.class);
             startActivity(logout);
         }
 
 
         return super.onOptionsItemSelected(item);
     }
-
-
 
 
     private void FillBrandsList() {
@@ -132,7 +118,7 @@ public class show_brands_to_user extends AppCompatActivity {
          */
 
 
-        Brands=new ArrayList<>();
+        Brands = new ArrayList<>();
 
         databaseReference.child("admins").addValueEventListener(new ValueEventListener() {
             @Override
@@ -147,13 +133,13 @@ public class show_brands_to_user extends AppCompatActivity {
                     String phone = child.child("phone").getValue().toString();
                     String address = child.child("address").getValue().toString();
                     String url = child.child("url").getValue().toString();
-                    Admin c = new Admin(id,name,email,phone,address,url);
+                    Admin c = new Admin(id, name, email, phone, address, url);
 
                     Brands.add(c);
 
                 }
 
-                CustomAdapter myAdapter=new CustomAdapter(Brands);
+                CustomAdapter myAdapter = new CustomAdapter(Brands);
                 viewAllBrands.setAdapter(myAdapter);
 
 
@@ -168,19 +154,16 @@ public class show_brands_to_user extends AppCompatActivity {
     }
 
 
-
-
     /**
      * Adapter
      */
-    class CustomAdapter extends BaseAdapter
-    {
+    class CustomAdapter extends BaseAdapter {
         ArrayList<Admin> listofbrands;
 
-        CustomAdapter(ArrayList<Admin> listofbrands)
-        {
-            this.listofbrands=listofbrands;
+        CustomAdapter(ArrayList<Admin> listofbrands) {
+            this.listofbrands = listofbrands;
         }
+
         @Override
         public int getCount() {
             return listofbrands.size();
@@ -198,11 +181,11 @@ public class show_brands_to_user extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            LayoutInflater linflater=getLayoutInflater();
-            View view1=linflater.inflate(R.layout.row_brands,null);
+            LayoutInflater linflater = getLayoutInflater();
+            View view1 = linflater.inflate(R.layout.row_brands, null);
 
-            TextView bname=(TextView)view1.findViewById(R.id.brand_name_show_user);
-            ImageView bimage=(ImageView)view1.findViewById(R.id.brand_image_show_user);
+            TextView bname = (TextView) view1.findViewById(R.id.brand_name_show_user);
+            ImageView bimage = (ImageView) view1.findViewById(R.id.brand_image_show_user);
 
             bname.setText(listofbrands.get(position).getName());
             Glide.with(getApplicationContext()).load(listofbrands.get(position).getUrl()).into(bimage);
@@ -210,7 +193,6 @@ public class show_brands_to_user extends AppCompatActivity {
             return view1;
         }
     }
-
 
 
 }

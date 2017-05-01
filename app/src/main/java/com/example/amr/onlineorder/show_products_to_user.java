@@ -36,7 +36,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class show_products_to_user extends AppCompatActivity{
+public class show_products_to_user extends AppCompatActivity {
 
 
     private ProgressDialog progressDialog;
@@ -46,13 +46,13 @@ public class show_products_to_user extends AppCompatActivity{
     DatabaseReference databaseReference;
     ArrayList<Product> products;
     ArrayList<Product> selected_items;
-    int Counter=0;
+    int Counter = 0;
     DatabaseReference mData;
     String id_admin = "";
     private ProgressDialog mprogressDialog;
 
 
-    Boolean is_in_action=false;
+    Boolean is_in_action = false;
     TextView countertxtview;
     Toolbar toolbar;
 
@@ -62,9 +62,9 @@ public class show_products_to_user extends AppCompatActivity{
         setContentView(R.layout.activity_show_products_to_user);
 
 
-        toolbar=(Toolbar)findViewById(R.id.toolbar_make_order);
+        toolbar = (Toolbar) findViewById(R.id.toolbar_make_order);
         setSupportActionBar(toolbar);
-        countertxtview=(TextView)findViewById(R.id.countertxt);
+        countertxtview = (TextView) findViewById(R.id.countertxt);
 
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
@@ -75,21 +75,19 @@ public class show_products_to_user extends AppCompatActivity{
          **/
 
         Bundle bundle = new Bundle();
-        bundle=getIntent().getExtras();
-        cate=(Category) bundle.getSerializable("CATEGORY");
-
+        bundle = getIntent().getExtras();
+        cate = (Category) bundle.getSerializable("CATEGORY");
 
 
         progressDialog = new ProgressDialog(this);
 
-        selected_items=new ArrayList<>();
-        products=new ArrayList<>();
-
+        selected_items = new ArrayList<>();
+        products = new ArrayList<>();
 
 
         progressDialog.setMessage("Please wait...");
         progressDialog.show();
-        databaseReference =FirebaseDatabase.getInstance().getReference("productsC");
+        databaseReference = FirebaseDatabase.getInstance().getReference("productsC");
 
         /**
          * Fill List from Category
@@ -108,15 +106,14 @@ public class show_products_to_user extends AppCompatActivity{
                     String price = child.child("price").getValue().toString();
                     String url = child.child("url").getValue().toString();
                     String category_id = child.child("category_id").getValue().toString();
-                    Product c = new Product(id,name, price, url, category_id);
+                    Product c = new Product(id, name, price, url, category_id);
 
-                    if (cate.id.equals(c.category_id))
-                    {
+                    if (cate.id.equals(c.category_id)) {
                         products.add(c);
                     }
                 }
 
-                adapter = new ProductsAdapter(show_products_to_user.this , products);
+                adapter = new ProductsAdapter(show_products_to_user.this, products);
 
                 //adding adapter to recyclerview
                 RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(show_products_to_user.this, 2);
@@ -171,24 +168,13 @@ public class show_products_to_user extends AppCompatActivity{
         });
 
 
-
-
-
-
-
-
-
-
-
-
     }
 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(item.getItemId()==R.id.orderbtn)
-        {
+        if (item.getItemId() == R.id.orderbtn) {
             /**
              * h3ml save ll order ll database
              */
@@ -199,19 +185,19 @@ public class show_products_to_user extends AppCompatActivity{
 
             String id = mDatabase.push().getKey();
 
-            Order send_order = new Order(id_admin,id,cate.Admin_id,"Padding",selected_items);
+            Order send_order = new Order(id_admin, id, cate.Admin_id, "Padding", selected_items);
 
             mDatabase.child("Order").child(id).setValue(send_order);
 
             Toast.makeText(show_products_to_user.this, "Order Send Successfully", Toast.LENGTH_SHORT).show();
 
 
-            is_in_action=false;
+            is_in_action = false;
             toolbar.getMenu().clear();
             adapter.notifyDataSetChanged();
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             countertxtview.setText("Products");
-            Counter=0;
+            Counter = 0;
             selected_items.clear();
 
         }
@@ -225,25 +211,23 @@ public class show_products_to_user extends AppCompatActivity{
      */
 
 
-    public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHolder>{
+    public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHolder> {
 
-        ArrayList<Product> productArrayList=new ArrayList<>();
+        ArrayList<Product> productArrayList = new ArrayList<>();
         show_products_to_user activity;
         private Context context;
 
-        public ProductsAdapter(Context context, ArrayList<Product> productArrayList)
-        {
-            this.productArrayList=productArrayList;
-            this.context=context;
-            activity=(show_products_to_user) context;
+        public ProductsAdapter(Context context, ArrayList<Product> productArrayList) {
+            this.productArrayList = productArrayList;
+            this.context = context;
+            activity = (show_products_to_user) context;
         }
-
 
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.product_card,parent,false);
-            ViewHolder holder=new ViewHolder(view,activity);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_card, parent, false);
+            ViewHolder holder = new ViewHolder(view, activity);
             return holder;
         }
 
@@ -257,21 +241,15 @@ public class show_products_to_user extends AppCompatActivity{
              */
             holder.RL.setBackgroundColor(Color.parseColor(cate.getColor()));
             holder.textViewName.setText(upload.getName());
-            holder.price.setText(upload.getPrice().toString()+" LE");
+            holder.price.setText(upload.getPrice().toString() + " LE");
             Glide.with(getApplicationContext()).load(upload.getUrl()).into(holder.imageView);
-            if(!is_in_action)
-            {
+            if (!is_in_action) {
                 holder.overflow.setVisibility(View.GONE);
 
-            }
-            else
-            {
+            } else {
                 holder.overflow.setVisibility(View.VISIBLE);
                 holder.overflow.setChecked(false);
             }
-
-
-
 
 
             holder.cardView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -285,7 +263,7 @@ public class show_products_to_user extends AppCompatActivity{
 
                     toolbar.inflateMenu(R.menu.create_order);
                     countertxtview.setText("0 Item Selected");
-                    is_in_action=true;
+                    is_in_action = true;
                     adapter.notifyDataSetChanged();
                     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                     return true;
@@ -300,22 +278,20 @@ public class show_products_to_user extends AppCompatActivity{
                      * lma b3ml select 3la 7aga
                      */
 
-                    if(holder.overflow.isChecked())
-                    {
+                    if (holder.overflow.isChecked()) {
 
                         selected_items.add(upload);
-                        Counter=Counter+1;
-                        countertxtview.setText(Counter+" Item Selected");
+                        Counter = Counter + 1;
+                        countertxtview.setText(Counter + " Item Selected");
                     }
                     /**
                      * lma y4el l checked b2a
                      */
 
-                    else
-                    {
+                    else {
                         selected_items.remove(upload);
-                        Counter=Counter-1;
-                        countertxtview.setText(Counter+" Item Selected");
+                        Counter = Counter - 1;
+                        countertxtview.setText(Counter + " Item Selected");
 
                     }
                 }
@@ -329,7 +305,7 @@ public class show_products_to_user extends AppCompatActivity{
             return productArrayList.size();
         }
 
-        public class ViewHolder extends RecyclerView.ViewHolder{
+        public class ViewHolder extends RecyclerView.ViewHolder {
 
             public TextView textViewName, price;
             public ImageView imageView;
@@ -338,7 +314,7 @@ public class show_products_to_user extends AppCompatActivity{
             RelativeLayout RL;
             show_products_to_user activity;
 
-            public ViewHolder(View itemView,show_products_to_user activity) {
+            public ViewHolder(View itemView, show_products_to_user activity) {
                 super(itemView);
 
                 textViewName = (TextView) itemView.findViewById(R.id.product_name);
@@ -346,16 +322,12 @@ public class show_products_to_user extends AppCompatActivity{
                 imageView = (ImageView) itemView.findViewById(R.id.image_product);
                 overflow = (CheckBox) itemView.findViewById(R.id.overflow);
                 RL = (RelativeLayout) itemView.findViewById(R.id.layoutproduct);
-                this.activity=activity;
-                cardView=(CardView)itemView.findViewById(R.id.card_view_product_to_user);
+                this.activity = activity;
+                cardView = (CardView) itemView.findViewById(R.id.card_view_product_to_user);
             }
 
 
-
-
         }
-
-
 
 
     }

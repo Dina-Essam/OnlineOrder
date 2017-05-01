@@ -2,7 +2,6 @@ package com.example.amr.onlineorder;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Dina on 4/27/2017.
@@ -17,22 +16,19 @@ public class Order implements Serializable {
     String state;
     ArrayList<Product> items;
 
-    public Order()
-    {
+    public Order() {
 
     }
 
-    public Order(String userID,String id ,String brand_id,String state ,ArrayList<Product> items)
-    {
-        this.id=id;
-        this.userID=userID;
-        this.brand_id=brand_id;
-        this.state=state;
-        this.items=items;
-        totalPrice=0.0;
+    public Order(String userID, String id, String brand_id, String state, ArrayList<Product> items) {
+        this.id = id;
+        this.userID = userID;
+        this.brand_id = brand_id;
+        this.state = state;
+        this.items = items;
+        totalPrice = 0.0;
 
-        for(int i=0 ;i<items.size();i++)
-        {
+        for (int i = 0; i < items.size(); i++) {
             totalPrice += Integer.parseInt(items.get(i).getPrice());
         }
 
