@@ -1,45 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_horizontal">
+    android:gravity="center_horizontal"
+    android:orientation="horizontal">
 
     <LinearLayout
+        android:id="@+id/layoutcat"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/layoutcat">
+        android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:weightSum="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:weightSum="1">
 
 
             <TextView
-                android:text="TextView"
+                android:id="@+id/category_name_show_user"
                 android:layout_width="wrap_content"
-                android:textSize="30dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:paddingTop="12dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/category_name_show_user" />
+                android:text="TextView"
+                android:textSize="30dp" />
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:weightSum="2">
 
-            <ImageView
-                android:layout_width="150dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:paddingBottom="5dp"
-                android:paddingLeft="50dp"
-                android:src="@android:drawable/ic_menu_send"
-                android:id="@+id/go_category"
-                android:layout_weight="0.18" />
-        </LinearLayout>
 
 
     </LinearLayout>

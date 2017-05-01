@@ -32,7 +32,6 @@ public class Order implements Serializable {
             totalPrice += Integer.parseInt(items.get(i).getPrice());
         }
 
-
     }
 
     public String getUserID() {

@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.Toolbar
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toolbar_make_order"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/toolbar_make_order"
-    android:background="@color/black_overlay"
+    android:background="@color/DarkPastelGreen"
     android:minHeight="?attr/actionBarSize"
     app:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/countertxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Products"
-            android:id="@+id/countertxt"
-            android:textSize="20dp"
-            android:textColor="#000000"
-            />
-
+            android:textColor="#ffffff"
+            android:textSize="20dp" />
 
     </RelativeLayout>
 
