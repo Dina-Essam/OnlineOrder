@@ -87,17 +87,8 @@ public class EditProduct extends AppCompatActivity {
                 if (price.getText().toString().isEmpty()) {
                     price.setError("Please Enter Price");
                 } else {
-                    if (imageurl.isEmpty()) {
-                        imageurl = image_pro;
-                        updatePro(namee.getText().toString(), price.getText().toString(), imageurl, id_pro);
-                        Toast.makeText(EditProduct.this, "Updated Successfully", Toast.LENGTH_SHORT).show();
-                        finish();
-                    } else {
-                        uploadFile();
-                    }
-
+                    uploadFile();
                 }
-
             }
         });
     }
@@ -135,7 +126,7 @@ public class EditProduct extends AppCompatActivity {
                     progressDialog.dismiss();
 
                     //displaying success toast
-                    Toast.makeText(getApplicationContext(), "File Uploaded ", Toast.LENGTH_LONG).show();
+                    //       Toast.makeText(getApplicationContext(), "File Uploaded ", Toast.LENGTH_LONG).show();
 
                     imageurl = taskSnapshot.getDownloadUrl().toString();
 
@@ -158,7 +149,10 @@ public class EditProduct extends AppCompatActivity {
                 }
             });
         } else {
-            Toast.makeText(EditProduct.this, "File Error", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(EditProduct.this, "File Error", Toast.LENGTH_SHORT).show();
+            updatePro(namee.getText().toString(), price.getText().toString(), image_pro, id_pro);
+            Toast.makeText(EditProduct.this, "Updated Successfully", Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
 

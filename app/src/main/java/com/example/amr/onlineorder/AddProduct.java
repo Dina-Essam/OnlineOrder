@@ -173,7 +173,7 @@ public class AddProduct extends AppCompatActivity {
                     progressDialog.dismiss();
 
                     //displaying success toast
-                    Toast.makeText(getApplicationContext(), "File Uploaded ", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getApplicationContext(), "File Uploaded ", Toast.LENGTH_LONG).show();
 
                     imageurl = taskSnapshot.getDownloadUrl().toString();
 
@@ -187,7 +187,7 @@ public class AddProduct extends AppCompatActivity {
                     Product a = new Product(s, name.getText().toString().trim(), price.getText().toString().trim(), imageurl, catch_id);
 
                     mDatabase.child("productsC").child(s).setValue(a);
-                    Toast.makeText(AddProduct.this, "Done", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Added Successfully ", Toast.LENGTH_LONG).show();
                     finish();
                 }
             }).addOnFailureListener(new OnFailureListener() {
