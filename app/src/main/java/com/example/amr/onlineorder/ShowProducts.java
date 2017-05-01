@@ -15,6 +15,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.google.firebase.database.DataSnapshot;
@@ -45,10 +47,15 @@ public class ShowProducts extends AppCompatActivity {
 
     String cat_id, cat_color, adminnn_id;
 
+    ArrayList<String> names, ids;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_products);
+
+        ids = new ArrayList<>();
+        names = new ArrayList<>();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -79,6 +86,8 @@ public class ShowProducts extends AppCompatActivity {
                 //dismissing the progress dialog
                 progressDialog.dismiss();
                 uploads.clear();
+                names.clear();
+                ids.clear();
                 //iterating through all the values in database
                 for (DataSnapshot child : snapshot.getChildren()) {
                     String uid = child.getKey();
@@ -90,6 +99,8 @@ public class ShowProducts extends AppCompatActivity {
 
                     if (cat_id.equals(category_id)) {
                         uploads.add(c);
+                        names.add(name);
+                        ids.add(uid);
                     }
                 }
                 //creating adapter
@@ -201,4 +212,26 @@ public class ShowProducts extends AppCompatActivity {
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (names.size() >= 1) {
+            getMenuInflater().inflate(R.menu.delete_menu, menu);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int a = item.getItemId();
+
+        if (a == R.id.delete) {
+
+            Intent intent = new Intent(ShowProducts.this, DeleteProduct.class);
+            intent.putStringArrayListExtra("idsProlist", ids);
+            intent.putStringArrayListExtra("namesProlist", names);
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

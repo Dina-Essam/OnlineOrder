@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -28,6 +30,7 @@ public class ShowCategories extends AppCompatActivity {
     CategoriesAdapter categoriesAdapter;
     ListView lv;
     String adm_id;
+    ArrayList<String> names, ids;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,9 @@ public class ShowCategories extends AppCompatActivity {
         setContentView(R.layout.activity_show_categories);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        ids = new ArrayList<>();
+        names = new ArrayList<>();
 
         data = new ArrayList<>();
         lv = (ListView) findViewById(R.id.listview_cat);
@@ -55,6 +61,8 @@ public class ShowCategories extends AppCompatActivity {
                 progressDialog.dismiss();
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
                 data.clear();
+                names.clear();
+                ids.clear();
                 for (DataSnapshot child : children) {
                     String uid = child.getKey();
                     String name = child.child("name").getValue().toString();
@@ -63,6 +71,8 @@ public class ShowCategories extends AppCompatActivity {
                     Category c = new Category(uid, name, color, admin_id);
 
                     if (adm_id.equals(admin_id)) {
+                        ids.add(uid);
+                        names.add(name);
                         data.add(c);
                     }
                 }
@@ -136,5 +146,27 @@ public class ShowCategories extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (names.size() >= 1) {
+            getMenuInflater().inflate(R.menu.delete_menu, menu);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int a = item.getItemId();
+
+        if (a == R.id.delete) {
+
+            Intent intent = new Intent(ShowCategories.this, DeleteCategory.class);
+            intent.putStringArrayListExtra("idsCatlist", ids);
+            intent.putStringArrayListExtra("namesCatlist", names);
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 }
