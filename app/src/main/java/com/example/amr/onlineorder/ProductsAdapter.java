@@ -41,7 +41,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
         holder.RL.setBackgroundColor(Color.parseColor(color));
 
         holder.textViewName.setText(upload.getName());
-        holder.price.setText(upload.getPrice());
+        holder.price.setText(upload.getPrice() + " LE");
 
         Glide.with(context).load(upload.getUrl()).into(holder.imageView);
 

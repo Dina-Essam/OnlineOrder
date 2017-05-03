@@ -101,6 +101,13 @@ public class EditProduct extends AppCompatActivity {
 
     }
 
+    private void updatePro(String name, String price, String id) {
+
+        mFirebaseDatabase.child(id).child("name").setValue(name);
+        mFirebaseDatabase.child(id).child("price").setValue(price);
+
+    }
+
     public String getFileExtension(Uri uri) {
         ContentResolver cR = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
@@ -150,7 +157,7 @@ public class EditProduct extends AppCompatActivity {
             });
         } else {
             // Toast.makeText(EditProduct.this, "File Error", Toast.LENGTH_SHORT).show();
-            updatePro(namee.getText().toString(), price.getText().toString(), image_pro, id_pro);
+            updatePro(namee.getText().toString(), price.getText().toString(), id_pro);
             Toast.makeText(EditProduct.this, "Updated Successfully", Toast.LENGTH_SHORT).show();
             finish();
         }

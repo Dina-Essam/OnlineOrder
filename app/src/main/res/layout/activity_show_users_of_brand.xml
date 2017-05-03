@@ -20,7 +20,6 @@
         app:titleTextColor="#ffffff" />
 
 
-
     <ListView
         android:id="@+id/listview_users_admin"
         android:layout_width="match_parent"
@@ -30,7 +29,6 @@
         android:layout_marginRight="15dp">
 
     </ListView>
-
 
 
 </LinearLayout>

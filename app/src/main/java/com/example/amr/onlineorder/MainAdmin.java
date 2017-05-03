@@ -86,7 +86,7 @@ public class MainAdmin extends AppCompatActivity {
             public void onClick(View v) {
 
                 Bundle dataBundle = new Bundle();
-                dataBundle.putString("admin_id", id_admin);
+                dataBundle.putString("admi_id", id_admin);
                 Intent i = new Intent(MainAdmin.this, ShowUsersOfBrand.class);
                 i.putExtras(dataBundle);
                 startActivity(i);
