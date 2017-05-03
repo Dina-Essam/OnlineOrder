@@ -114,8 +114,7 @@ public class ShowCategories extends AppCompatActivity {
                                            final int index, long arg3) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(ShowCategories.this);
-                builder.setMessage("What do you want ?")
-                        .setPositiveButton("Edit " + data.get(index).getName(), new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("Edit " + data.get(index).getName(), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 
                                 AlertDialog.Builder builder = new AlertDialog.Builder(ShowCategories.this);
@@ -163,7 +162,7 @@ public class ShowCategories extends AppCompatActivity {
                     }
                 });
                 AlertDialog d = builder.create();
-                d.setTitle("Are you sure");
+                d.setTitle("What do you want ?");
                 d.show();
 
                 return true;

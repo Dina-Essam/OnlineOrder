@@ -138,8 +138,7 @@ public class ShowProducts extends AppCompatActivity {
                         final String imageProd = uploads.get(position).getUrl();
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(ShowProducts.this);
-                        builder.setMessage("What do you want ?")
-                                .setPositiveButton("Edit " + nameProd, new DialogInterface.OnClickListener() {
+                        builder.setPositiveButton("Edit " + nameProd, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
 
                                         AlertDialog.Builder builder = new AlertDialog.Builder(ShowProducts.this);
@@ -180,7 +179,7 @@ public class ShowProducts extends AppCompatActivity {
                                     }
                                 });
                                 AlertDialog d = builder.create();
-                                d.setTitle("Are you sure");
+                                d.setTitle("What do you want ?");
                                 d.show();
                             }
                         });
