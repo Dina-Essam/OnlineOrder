@@ -85,6 +85,12 @@ public class MainAdmin extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                Bundle dataBundle = new Bundle();
+                dataBundle.putString("admin_id", id_admin);
+                Intent i = new Intent(MainAdmin.this, ShowUsersOfBrand.class);
+                i.putExtras(dataBundle);
+                startActivity(i);
+
             }
         });
         Logout.setOnClickListener(new View.OnClickListener() {

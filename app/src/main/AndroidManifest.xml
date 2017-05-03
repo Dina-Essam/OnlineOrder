@@ -47,12 +47,13 @@
         <activity
             android:name=".DeleteCategory"
             android:label="Do you want to delete Category ?"
-            android:theme="@style/Base.Theme.AppCompat.Light.Dialog"></activity>
+            android:theme="@style/Base.Theme.AppCompat.Light.Dialog" />
         <activity
             android:name=".DeleteProduct"
             android:label="Do you want to delete Product ?"
-            android:theme="@style/Base.Theme.AppCompat.Light.Dialog"></activity>
-        <activity android:name=".show_products_of_order"></activity>
+            android:theme="@style/Base.Theme.AppCompat.Light.Dialog" />
+        <activity android:name=".show_products_of_order" />
+        <activity android:name=".ShowUsersOfBrand"></activity>
     </application>
 
 </manifest>
