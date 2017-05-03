@@ -115,31 +115,31 @@ public class ShowCategories extends AppCompatActivity {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(ShowCategories.this);
                 builder.setPositiveButton("Edit " + data.get(index).getName(), new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
+                    public void onClick(DialogInterface dialog, int id) {
 
-                                AlertDialog.Builder builder = new AlertDialog.Builder(ShowCategories.this);
-                                builder.setMessage("Do you want to edit " + data.get(index).getName() + " ?")
-                                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int id) {
-
-                                                Bundle dataBundle = new Bundle();
-                                                dataBundle.putString("iD_cat", data.get(index).getId());
-                                                dataBundle.putString("na_cat", data.get(index).getName());
-                                                dataBundle.putString("col_cat", data.get(index).getColor());
-                                                Intent i = new Intent(ShowCategories.this, EditCategory.class);
-                                                i.putExtras(dataBundle);
-                                                startActivity(i);
-                                            }
-                                        }).setNegativeButton("Delete " + data.get(index).getName(), new DialogInterface.OnClickListener() {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(ShowCategories.this);
+                        builder.setMessage("Do you want to edit " + data.get(index).getName() + " ?")
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
-                                        // Nothing
+
+                                        Bundle dataBundle = new Bundle();
+                                        dataBundle.putString("iD_cat", data.get(index).getId());
+                                        dataBundle.putString("na_cat", data.get(index).getName());
+                                        dataBundle.putString("col_cat", data.get(index).getColor());
+                                        Intent i = new Intent(ShowCategories.this, EditCategory.class);
+                                        i.putExtras(dataBundle);
+                                        startActivity(i);
                                     }
-                                });
-                                AlertDialog d = builder.create();
-                                d.setTitle("Are you sure");
-                                d.show();
+                                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // Nothing
                             }
-                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        });
+                        AlertDialog d = builder.create();
+                        d.setTitle("Are you sure");
+                        d.show();
+                    }
+                }).setNegativeButton("Delete " + data.get(index).getName(), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(ShowCategories.this);

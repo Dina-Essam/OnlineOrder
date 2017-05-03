@@ -139,31 +139,31 @@ public class ShowProducts extends AppCompatActivity {
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(ShowProducts.this);
                         builder.setPositiveButton("Edit " + nameProd, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
+                            public void onClick(DialogInterface dialog, int id) {
 
-                                        AlertDialog.Builder builder = new AlertDialog.Builder(ShowProducts.this);
-                                        builder.setMessage("Do you want to edit " + nameProd + " ?")
-                                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                                    public void onClick(DialogInterface dialog, int id) {
-                                                        Bundle dataBundle = new Bundle();
-                                                        dataBundle.putString("iD_pro", idProd);
-                                                        dataBundle.putString("na_pro", nameProd);
-                                                        dataBundle.putString("pri_pro", priceProd);
-                                                        dataBundle.putString("img_pro", imageProd);
-                                                        Intent i = new Intent(ShowProducts.this, EditProduct.class);
-                                                        i.putExtras(dataBundle);
-                                                        startActivity(i);
-                                                    }
-                                                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(ShowProducts.this);
+                                builder.setMessage("Do you want to edit " + nameProd + " ?")
+                                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int id) {
-                                                // Nothing
+                                                Bundle dataBundle = new Bundle();
+                                                dataBundle.putString("iD_pro", idProd);
+                                                dataBundle.putString("na_pro", nameProd);
+                                                dataBundle.putString("pri_pro", priceProd);
+                                                dataBundle.putString("img_pro", imageProd);
+                                                Intent i = new Intent(ShowProducts.this, EditProduct.class);
+                                                i.putExtras(dataBundle);
+                                                startActivity(i);
                                             }
-                                        });
-                                        AlertDialog d = builder.create();
-                                        d.setTitle("Are you sure");
-                                        d.show();
+                                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        // Nothing
                                     }
-                                }).setNegativeButton("Delete " + nameProd, new DialogInterface.OnClickListener() {
+                                });
+                                AlertDialog d = builder.create();
+                                d.setTitle("Are you sure");
+                                d.show();
+                            }
+                        }).setNegativeButton("Delete " + nameProd, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 
                                 AlertDialog.Builder builder = new AlertDialog.Builder(ShowProducts.this);
