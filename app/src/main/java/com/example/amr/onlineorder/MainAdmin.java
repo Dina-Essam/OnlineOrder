@@ -79,6 +79,9 @@ public class MainAdmin extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                Intent i = new Intent(MainAdmin.this, OnlineOrders.class);
+                startActivity(i);
+
             }
         });
         ShowUser.setOnClickListener(new View.OnClickListener() {

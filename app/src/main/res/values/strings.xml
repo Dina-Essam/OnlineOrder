@@ -4,4 +4,5 @@
     <string name="title_activity_show_products">ShowProducts</string>
     <string name="UpdateCheck">Update</string>
     <string name="DeleteCheck">Delete</string>
+    <string name="title_activity_online_orders">OnlineOrders</string>
 </resources>

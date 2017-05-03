@@ -22,8 +22,8 @@ public class ShowUsersOfBrand extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     String adm_id;
     private ProgressDialog progressDialog;
-    ArrayList<String> dataids_users , datanames_users;
-    DatabaseReference databaseReference1,databaseReference2;
+    ArrayList<String> dataids_users, datanames_users;
+    DatabaseReference databaseReference1, databaseReference2;
     ListView lv;
 
     @Override
@@ -34,10 +34,10 @@ public class ShowUsersOfBrand extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         adm_id = extras.getString("admi_id");
 
-        Toast.makeText(ShowUsersOfBrand.this, adm_id, Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(ShowUsersOfBrand.this, adm_id, Toast.LENGTH_SHORT).show();
 
         dataids_users = new ArrayList<>();
-//        datanames_users = new ArrayList<>();
+        datanames_users = new ArrayList<>();
 
         lv = (ListView) findViewById(R.id.listview_users_admin);
         progressDialog = new ProgressDialog(this);
@@ -62,8 +62,6 @@ public class ShowUsersOfBrand extends AppCompatActivity {
                         dataids_users.add(userID);
                     }
                 }
-                adapter = new ArrayAdapter<String>(ShowUsersOfBrand.this, android.R.layout.simple_list_item_1, dataids_users);
-                lv.setAdapter(adapter);
             }
 
             @Override
@@ -72,32 +70,31 @@ public class ShowUsersOfBrand extends AppCompatActivity {
             }
         });
 
-//        FirebaseDatabase database2 = FirebaseDatabase.getInstance();
-//        databaseReference2 = database2.getReference();
-//        databaseReference2.child("users").addValueEventListener(new ValueEventListener() {
-//
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                progressDialog.dismiss();
-//                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-//                dataids_users.clear();
-//                for (DataSnapshot child : children) {
-//                    String user_id = child.child("id").getValue().toString();
-//                    String userName = child.child("name").getValue().toString();
-//
-//                    if (dataids_users.contains(user_id)) {
-//                        datanames_users.add(userName);
-//                    }
-//                }
-//                adapter = new ArrayAdapter<String>(ShowUsersOfBrand.this, android.R.layout.simple_list_item_1, datanames_users);
-//                lv.setAdapter(adapter);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
+        FirebaseDatabase database2 = FirebaseDatabase.getInstance();
+        databaseReference2 = database2.getReference();
+        databaseReference2.child("users").addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+                datanames_users.clear();
+                for (DataSnapshot child : children) {
+                    String _id = child.child("id").getValue().toString();
+                    String names = child.child("name").getValue().toString();
+
+                    if (dataids_users.contains(_id)) {
+                        datanames_users.add(names);
+                    }
+                }
+                adapter = new ArrayAdapter<String>(ShowUsersOfBrand.this, android.R.layout.simple_list_item_1, datanames_users);
+                lv.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
