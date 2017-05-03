@@ -123,8 +123,9 @@ public class show_orders_to_user extends AppCompatActivity {
                         String state = child.child("state").getValue().toString();
                         Double totalPrice = Double.parseDouble(child.child("totalPrice").getValue().toString());
                         String userID = child.child("userID").getValue().toString();
-                        for (DataSnapshot items : child.child("items").getChildren()) {
-                            products.clear();
+                        products.clear();
+                        for (DataSnapshot items : child.child("items").getChildren())
+                        {
                             String id = items.child("id").getValue().toString();
                             String name = items.child("name").getValue().toString();
                             String price = items.child("price").getValue().toString();
@@ -135,6 +136,7 @@ public class show_orders_to_user extends AppCompatActivity {
                         }
 
                         oneOrder=new Order(userID,id1,brand_id,state,products);
+                        oneOrder.totalPrice=totalPrice;
                         if(id_admin.equals(userID)) {orderlist.add(oneOrder);}
 
                     }
@@ -155,9 +157,6 @@ public class show_orders_to_user extends AppCompatActivity {
 
             }
         });
-
-
-
 
 
 
