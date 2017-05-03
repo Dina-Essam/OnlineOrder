@@ -80,6 +80,9 @@ public class MainAdmin extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent i = new Intent(MainAdmin.this, OnlineOrders.class);
+                Bundle dataBundle = new Bundle();
+                dataBundle.putString("admi_id", id_admin);
+                i.putExtras(dataBundle);
                 startActivity(i);
 
             }
