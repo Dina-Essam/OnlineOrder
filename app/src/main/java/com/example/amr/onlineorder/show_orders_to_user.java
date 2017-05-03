@@ -118,26 +118,8 @@ public class show_orders_to_user extends AppCompatActivity {
                     for (DataSnapshot child : children)
                     {
 
-                        String brand_id = child.child("brand_id").getValue().toString();
-                        String id1 = child.child("id").getValue().toString();
-                        String state = child.child("state").getValue().toString();
-                        Double totalPrice = Double.parseDouble(child.child("totalPrice").getValue().toString());
-                        String userID = child.child("userID").getValue().toString();
-                        products.clear();
-                        for (DataSnapshot items : child.child("items").getChildren())
-                        {
-                            String id = items.child("id").getValue().toString();
-                            String name = items.child("name").getValue().toString();
-                            String price = items.child("price").getValue().toString();
-                            String url = items.child("url").getValue().toString();
-                            String category_id = items.child("category_id").getValue().toString();
-                            Product c = new Product(id, name, price, url, category_id);
-                            products.add(c);
-                        }
-
-                        oneOrder=new Order(userID,id1,brand_id,state,products);
-                        oneOrder.totalPrice=totalPrice;
-                        if(id_admin.equals(userID)) {orderlist.add(oneOrder);}
+                        oneOrder=child.getValue(Order.class);
+                        if(id_admin.equals(oneOrder.userID)) {orderlist.add(oneOrder);}
 
                     }
 
