@@ -79,7 +79,7 @@ public class MainAdmin extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(MainAdmin.this, OnlineOrders.class);
+                Intent i = new Intent(MainAdmin.this, OnlineOrder.class);
                 startActivity(i);
 
             }

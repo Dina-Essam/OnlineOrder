@@ -16,7 +16,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,12 +24,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class show_orders_to_user extends AppCompatActivity {
+public class ShowOrdersOfUser extends AppCompatActivity {
 
     ListView viewAllOrders;
-    DatabaseReference mData;
-    String id_admin = "";
-    private ProgressDialog mprogressDialog;
+    String id_user = "";
     private ProgressDialog progressDialog;
     ArrayList<Product> products;
     DatabaseReference mDataRef;
@@ -39,51 +36,14 @@ public class show_orders_to_user extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_orders_to_user);
+        setContentView(R.layout.activity_show_orders_of_user);
 
         orderlist = new ArrayList<>();
-        viewAllOrders = (ListView) findViewById(R.id.listview_Orders_user);
+        viewAllOrders = (ListView) findViewById(R.id.listview_ordersofuser);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-
-        /**
-         * User ID
-
-         **/
-
-        mprogressDialog = new ProgressDialog(this);
-        mprogressDialog.setMessage("Please wait...");
-        mprogressDialog.show();
-
-        mData = database.getReference();
-        mData.child("users").addValueEventListener(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                mprogressDialog.dismiss();
-                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-
-                for (DataSnapshot child : children) {
-
-                    String uid = child.child("id").getValue().toString();
-                    String email = child.child("email").getValue().toString();
-
-
-                    if (FirebaseAuth.getInstance().getCurrentUser().getEmail().equals(email)) {
-                        id_admin = uid;
-
-                    }
-                }
-
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
+        Bundle extras = getIntent().getExtras();
+        id_user = extras.getString("user_id");
 
         /**
          * fill Orders
@@ -108,7 +68,7 @@ public class show_orders_to_user extends AppCompatActivity {
                     for (DataSnapshot child : children) {
 
                         oneOrder = child.getValue(Order.class);
-                        if (id_admin.equals(oneOrder.userID)) {
+                        if (id_user.equals(oneOrder.userID)) {
                             orderlist.add(oneOrder);
                         }
 
@@ -118,7 +78,7 @@ public class show_orders_to_user extends AppCompatActivity {
                     CustomAdapter myAdapter = new CustomAdapter(orderlist);
                     viewAllOrders.setAdapter(myAdapter);
                 } catch (Exception e) {
-                    Toast.makeText(show_orders_to_user.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(ShowOrdersOfUser.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -135,7 +95,7 @@ public class show_orders_to_user extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
 
-                Intent GOTOorder = new Intent(show_orders_to_user.this, show_products_of_order.class);
+                Intent GOTOorder = new Intent(ShowOrdersOfUser.this, show_products_of_order.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("PRODUCTS", orderlist.get(position).items);
                 GOTOorder.putExtras(bundle);
@@ -183,11 +143,10 @@ public class show_orders_to_user extends AppCompatActivity {
             View view1 = linflater.inflate(R.layout.row_order, null);
 
             TextView ordername = (TextView) view1.findViewById(R.id.order_name_show_user);
-            for (Product s : orderlist.get(position).items)
-            {
-                ordername.append(s.getName()+ " \n");
+            for (Product s : orderlist.get(position).items) {
+                ordername.append(s.getName() + " \n");
             }
-           // ordername.setText("Order " + (position + 1));
+            // ordername.setText("Order " + (position + 1));
 
             TextView orderstate = (TextView) view1.findViewById(R.id.order_state_user);
             orderstate.setText(orderArrayList.get(position).state);

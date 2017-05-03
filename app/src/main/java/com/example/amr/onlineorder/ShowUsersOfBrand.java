@@ -1,13 +1,13 @@
 package com.example.amr.onlineorder;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -100,7 +100,12 @@ public class ShowUsersOfBrand extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 
-                Toast.makeText(ShowUsersOfBrand.this, dataids_users.get(arg2), Toast.LENGTH_SHORT).show();
+               // Toast.makeText(ShowUsersOfBrand.this, dataids_users.get(arg2), Toast.LENGTH_SHORT).show();
+                Bundle dataBundle = new Bundle();
+                dataBundle.putString("user_id", dataids_users.get(arg2));
+                Intent i = new Intent(ShowUsersOfBrand.this, ShowOrdersOfUser.class);
+                i.putExtras(dataBundle);
+                startActivity(i);
             }
         });
 

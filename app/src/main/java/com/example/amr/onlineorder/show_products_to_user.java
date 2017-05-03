@@ -2,12 +2,11 @@ package com.example.amr.onlineorder;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Rect;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -21,7 +20,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -199,6 +197,7 @@ public class show_products_to_user extends AppCompatActivity {
 
             Toast.makeText(show_products_to_user.this, "Order Send Successfully", Toast.LENGTH_SHORT).show();
 
+            finish();
 
             is_in_action = false;
             toolbar.getMenu().clear();

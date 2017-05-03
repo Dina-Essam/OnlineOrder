@@ -5,4 +5,11 @@
     <string name="UpdateCheck">Update</string>
     <string name="DeleteCheck">Delete</string>
     <string name="title_activity_online_orders">OnlineOrders</string>
+
+    <string-array name="status">
+        <item>Pending</item>
+        <item>InProgress</item>
+        <item>Delivered</item>
+    </string-array>
 </resources>
+

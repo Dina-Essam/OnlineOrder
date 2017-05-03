@@ -9,38 +9,24 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
-    <ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true">
-
-        <TextView
-            android:id="@+id/textproducts"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-    </ScrollView>
-
     <Spinner
         android:id="@+id/spinnerstatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"
+        android:drawSelectorOnTop="true"
+        android:entries="@array/status"/>
 
     <TextView
-        android:id="@+id/customer"
+        android:id="@+id/productsname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_alignTop="@+id/spinnerstatus"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/scrollView"
-        android:text="Customer"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/totalprice"
@@ -48,7 +34,17 @@
         android:layout_height="wrap_content"
         android:text="Total Price"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_alignTop="@+id/customer"
+        android:layout_below="@+id/productsname"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/customer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Customer"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/productsname"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

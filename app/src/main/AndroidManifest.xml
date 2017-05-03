@@ -54,10 +54,8 @@
             android:theme="@style/Base.Theme.AppCompat.Light.Dialog" />
         <activity android:name=".show_products_of_order" />
         <activity android:name=".ShowUsersOfBrand" />
-        <activity
-            android:name=".OnlineOrders"
-            android:label="@string/title_activity_online_orders"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".ShowOrdersOfUser" />
+        <activity android:name=".OnlineOrder"></activity>
     </application>
 
 </manifest>
