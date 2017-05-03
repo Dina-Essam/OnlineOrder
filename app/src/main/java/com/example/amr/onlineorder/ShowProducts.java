@@ -15,9 +15,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,6 +28,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShowProducts extends AppCompatActivity {
+
+    private DatabaseReference mFirebaseDatabase;
+    private FirebaseDatabase mFirebaseInstance;
 
     //recyclerview object
     private RecyclerView recyclerView;
@@ -53,6 +55,10 @@ public class ShowProducts extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_products);
+
+        mFirebaseInstance = FirebaseDatabase.getInstance();
+
+        mFirebaseDatabase = mFirebaseInstance.getReference("productsC");
 
         ids = new ArrayList<>();
         names = new ArrayList<>();
@@ -132,21 +138,50 @@ public class ShowProducts extends AppCompatActivity {
                         final String imageProd = uploads.get(position).getUrl();
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(ShowProducts.this);
-                        builder.setMessage("Do you want to update " + uploads.get(position).getName() + " ?")
-                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        builder.setMessage("What do you want ?")
+                                .setPositiveButton("Edit " + nameProd, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
-                                        Bundle dataBundle = new Bundle();
-                                        dataBundle.putString("iD_pro", idProd);
-                                        dataBundle.putString("na_pro", nameProd);
-                                        dataBundle.putString("pri_pro", priceProd);
-                                        dataBundle.putString("img_pro", imageProd);
-                                        Intent i = new Intent(ShowProducts.this, EditProduct.class);
-                                        i.putExtras(dataBundle);
-                                        startActivity(i);
+
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(ShowProducts.this);
+                                        builder.setMessage("Do you want to edit " + nameProd + " ?")
+                                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int id) {
+                                                        Bundle dataBundle = new Bundle();
+                                                        dataBundle.putString("iD_pro", idProd);
+                                                        dataBundle.putString("na_pro", nameProd);
+                                                        dataBundle.putString("pri_pro", priceProd);
+                                                        dataBundle.putString("img_pro", imageProd);
+                                                        Intent i = new Intent(ShowProducts.this, EditProduct.class);
+                                                        i.putExtras(dataBundle);
+                                                        startActivity(i);
+                                                    }
+                                                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                // Nothing
+                                            }
+                                        });
+                                        AlertDialog d = builder.create();
+                                        d.setTitle("Are you sure");
+                                        d.show();
                                     }
-                                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                }).setNegativeButton("Delete " + nameProd, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                // Nothing
+
+                                AlertDialog.Builder builder = new AlertDialog.Builder(ShowProducts.this);
+                                builder.setMessage("Do you want to delete " + nameProd + " ?")
+                                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                mFirebaseDatabase.child(idProd).removeValue();
+                                                Toast.makeText(ShowProducts.this, "Deleted Successfully", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        // Nothing
+                                    }
+                                });
+                                AlertDialog d = builder.create();
+                                d.setTitle("Are you sure");
+                                d.show();
                             }
                         });
                         AlertDialog d = builder.create();
@@ -212,24 +247,4 @@ public class ShowProducts extends AppCompatActivity {
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.delete_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int a = item.getItemId();
-
-        if (a == R.id.delete) {
-
-            Intent intent = new Intent(ShowProducts.this, DeleteProduct.class);
-            intent.putStringArrayListExtra("idsProlist", ids);
-            intent.putStringArrayListExtra("namesProlist", names);
-            startActivity(intent);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

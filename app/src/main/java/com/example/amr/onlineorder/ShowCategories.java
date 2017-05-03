@@ -8,11 +8,10 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,6 +30,8 @@ public class ShowCategories extends AppCompatActivity {
     ListView lv;
     String adm_id;
     ArrayList<String> names, ids;
+    private DatabaseReference mFirebaseDatabase;
+    private FirebaseDatabase mFirebaseInstance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,10 @@ public class ShowCategories extends AppCompatActivity {
         setContentView(R.layout.activity_show_categories);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        mFirebaseInstance = FirebaseDatabase.getInstance();
+
+        mFirebaseDatabase = mFirebaseInstance.getReference("categoriesAdmin");
 
         ids = new ArrayList<>();
         names = new ArrayList<>();
@@ -109,20 +114,52 @@ public class ShowCategories extends AppCompatActivity {
                                            final int index, long arg3) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(ShowCategories.this);
-                builder.setMessage("Do you want to update " + data.get(index).getName() + " ?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                builder.setMessage("What do you want ?")
+                        .setPositiveButton("Edit " + data.get(index).getName(), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                Bundle dataBundle = new Bundle();
-                                dataBundle.putString("iD_cat", data.get(index).getId());
-                                dataBundle.putString("na_cat", data.get(index).getName());
-                                dataBundle.putString("col_cat", data.get(index).getColor());
-                                Intent i = new Intent(ShowCategories.this, EditCategory.class);
-                                i.putExtras(dataBundle);
-                                startActivity(i);
+
+                                AlertDialog.Builder builder = new AlertDialog.Builder(ShowCategories.this);
+                                builder.setMessage("Do you want to edit " + data.get(index).getName() + " ?")
+                                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+
+                                                Bundle dataBundle = new Bundle();
+                                                dataBundle.putString("iD_cat", data.get(index).getId());
+                                                dataBundle.putString("na_cat", data.get(index).getName());
+                                                dataBundle.putString("col_cat", data.get(index).getColor());
+                                                Intent i = new Intent(ShowCategories.this, EditCategory.class);
+                                                i.putExtras(dataBundle);
+                                                startActivity(i);
+                                            }
+                                        }).setNegativeButton("Delete " + data.get(index).getName(), new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        // Nothing
+                                    }
+                                });
+                                AlertDialog d = builder.create();
+                                d.setTitle("Are you sure");
+                                d.show();
                             }
                         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // Nothing
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(ShowCategories.this);
+                        builder.setMessage("Do you want to delete " + data.get(index).getName() + " ?")
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+
+                                        mFirebaseDatabase.child(data.get(index).getId()).removeValue();
+                                        Toast.makeText(ShowCategories.this, "Deleted Successfully", Toast.LENGTH_SHORT).show();
+                                    }
+                                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // Nothing
+                            }
+                        });
+                        AlertDialog d = builder.create();
+                        d.setTitle("Are you sure");
+                        d.show();
+
                     }
                 });
                 AlertDialog d = builder.create();
@@ -146,25 +183,5 @@ public class ShowCategories extends AppCompatActivity {
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.delete_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int a = item.getItemId();
-
-        if (a == R.id.delete) {
-
-            Intent intent = new Intent(ShowCategories.this, DeleteCategory.class);
-            intent.putStringArrayListExtra("idsCatlist", ids);
-            intent.putStringArrayListExtra("namesCatlist", names);
-            startActivity(intent);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
 }
