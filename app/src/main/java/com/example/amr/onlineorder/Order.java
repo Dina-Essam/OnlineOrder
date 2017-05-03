@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Created by Dina on 4/27/2017.
  */
 
-public class Order implements Serializable {
+public class Order implements Serializable, Cloneable {
 
     String userID;
     String id;
@@ -15,6 +15,12 @@ public class Order implements Serializable {
     Double totalPrice;
     String state;
     ArrayList<Product> items;
+
+    @Override
+    public Order clone() throws CloneNotSupportedException {
+        return (Order) super.clone();
+    }
+
 
     public Order() {
 

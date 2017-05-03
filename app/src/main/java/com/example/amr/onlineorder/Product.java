@@ -2,13 +2,19 @@ package com.example.amr.onlineorder;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.io.Serializable;
+
 @IgnoreExtraProperties
-public class Product {
+public class Product implements Serializable {
     String id;
     String name;
     String price;
     String url;
     String category_id;
+    public Product()
+    {
+
+    }
 
     public String getId() {
         return id;

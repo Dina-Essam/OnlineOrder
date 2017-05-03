@@ -43,17 +43,16 @@
             android:name=".show_categories_to_user"
             android:label="Categories" />
         <activity android:name=".show_products_to_user" />
-        <activity android:name=".show_orders_to_user"></activity>
+        <activity android:name=".show_orders_to_user" />
         <activity
             android:name=".DeleteCategory"
             android:label="Do you want to delete Category ?"
-            android:theme="@style/Base.Theme.AppCompat.Light.Dialog">
-        </activity>
+            android:theme="@style/Base.Theme.AppCompat.Light.Dialog"></activity>
         <activity
             android:name=".DeleteProduct"
             android:label="Do you want to delete Product ?"
-            android:theme="@style/Base.Theme.AppCompat.Light.Dialog">
-        </activity>
+            android:theme="@style/Base.Theme.AppCompat.Light.Dialog"></activity>
+        <activity android:name=".show_products_of_order"></activity>
     </application>
 
 </manifest>

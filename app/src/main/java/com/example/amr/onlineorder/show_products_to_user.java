@@ -81,12 +81,12 @@ public class show_products_to_user extends AppCompatActivity {
         cate = (Category) bundle.getSerializable("CATEGORY");
 
 
-        progressDialog = new ProgressDialog(this);
+
 
         selected_items = new ArrayList<>();
         products = new ArrayList<>();
 
-
+        progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please wait...");
         progressDialog.show();
         databaseReference = FirebaseDatabase.getInstance().getReference("productsC");

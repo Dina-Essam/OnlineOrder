@@ -16,6 +16,7 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -29,12 +30,13 @@ import java.util.ArrayList;
 public class show_orders_to_user extends AppCompatActivity {
 
     ListView viewAllOrders;
-    DatabaseReference mdatabaseReference;
+    DatabaseReference mData;
     String id_admin = "";
     private ProgressDialog mprogressDialog;
+    private ProgressDialog progressDialog;
+    ArrayList<Product> products;
     DatabaseReference mDataRef;
     ArrayList<Order> orderlist;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,30 +44,41 @@ public class show_orders_to_user extends AppCompatActivity {
 
         orderlist = new ArrayList<>();
         viewAllOrders = (ListView) findViewById(R.id.listview_Orders_user);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
 
 
+
+
+
+        /**
+         * User ID
+
+         **/
 
         mprogressDialog = new ProgressDialog(this);
         mprogressDialog.setMessage("Please wait...");
         mprogressDialog.show();
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        mdatabaseReference = database.getReference();
-        mdatabaseReference.child("users").addValueEventListener(new ValueEventListener() {
+        mData = database.getReference();
+        mData.child("users").addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                mprogressDialog.dismiss();
+                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
 
-                // Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+                for (DataSnapshot child : children) {
 
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    String uid = child.getKey();
+                    String uid = child.child("id").getValue().toString();
                     String email = child.child("email").getValue().toString();
 
+
                     if (FirebaseAuth.getInstance().getCurrentUser().getEmail().equals(email)) {
-                        id_admin = uid;
+                        id_admin=uid;
+
                     }
                 }
+
 
             }
 
@@ -77,25 +90,63 @@ public class show_orders_to_user extends AppCompatActivity {
 
 
 
+
+
+
+
+        /**
+         * fill Orders
+         *
+         **/
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please wait...");
+        progressDialog.show();
         mDataRef=database.getReference();
         mDataRef.child("Order").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
+                progressDialog.dismiss();
+                orderlist.clear();
+                Order oneOrder;
+                products = new ArrayList<>();
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-                mprogressDialog.dismiss();
-                for(DataSnapshot child : children)
+
+                try
                 {
-                    Order order=child.getValue(Order.class);
-                    if(order.userID==id_admin)
+                    for (DataSnapshot child : children)
                     {
-                        orderlist.add(order);
+
+                        String brand_id = child.child("brand_id").getValue().toString();
+                        String id1 = child.child("id").getValue().toString();
+                        String state = child.child("state").getValue().toString();
+                        Double totalPrice = Double.parseDouble(child.child("totalPrice").getValue().toString());
+                        String userID = child.child("userID").getValue().toString();
+                        for (DataSnapshot items : child.child("items").getChildren()) {
+                            products.clear();
+                            String id = items.child("id").getValue().toString();
+                            String name = items.child("name").getValue().toString();
+                            String price = items.child("price").getValue().toString();
+                            String url = items.child("url").getValue().toString();
+                            String category_id = items.child("category_id").getValue().toString();
+                            Product c = new Product(id, name, price, url, category_id);
+                            products.add(c);
+                        }
+
+                        oneOrder=new Order(userID,id1,brand_id,state,products);
+                        if(id_admin.equals(userID)) {orderlist.add(oneOrder);}
+
                     }
 
-                }
 
-                CustomAdapter myAdapter = new CustomAdapter(orderlist);
-                viewAllOrders.setAdapter(myAdapter);
+                    CustomAdapter myAdapter = new CustomAdapter(orderlist);
+                    viewAllOrders.setAdapter(myAdapter);
+                }
+                catch (Exception e)
+                {
+                    Toast.makeText(show_orders_to_user.this,e.getMessage(), Toast.LENGTH_LONG).show();
+                }
 
             }
 
@@ -104,6 +155,9 @@ public class show_orders_to_user extends AppCompatActivity {
 
             }
         });
+
+
+
 
 
 
@@ -115,12 +169,14 @@ public class show_orders_to_user extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-/**
- * hb3tha ll order products
- */
 
-                Intent GOTOorder = new Intent(show_orders_to_user.this, show_brands_to_user.class);
-                startActivity(GOTOorder);
+
+                    Intent GOTOorder = new Intent(show_orders_to_user.this, show_products_of_order.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("PRODUCTS", orderlist.get(position).items);
+                    GOTOorder.putExtras(bundle);
+                    startActivity(GOTOorder);
+
 
             }
         });
@@ -165,18 +221,14 @@ public class show_orders_to_user extends AppCompatActivity {
             LayoutInflater linflater = getLayoutInflater();
             View view1 = linflater.inflate(R.layout.row_order, null);
 
-            /**
-             * blwen l category w bzher 2sm l Product
-             */
-            TextView bname = (TextView) view1.findViewById(R.id.order_name_show_user);
-            bname.setText("Order"+position);
+           TextView ordername=(TextView)view1.findViewById(R.id.order_name_show_user);
+           ordername.setText("Order "+(position+1));
 
-            TextView state =(TextView)view1.findViewById(R.id.order_state_user);
-            state.setText(orderArrayList.get(position).getState());
+            TextView orderstate=(TextView)view1.findViewById(R.id.order_state_user);
+            orderstate.setText(orderArrayList.get(position).state);
 
-            TextView price =(TextView)view1.findViewById(R.id.order_price_user);
-            state.setText(orderArrayList.get(position).getTotalPrice().toString());
-
+            TextView orderprice=(TextView)view1.findViewById(R.id.order_price_user);
+            orderprice.setText("Total Price: "+orderArrayList.get(position).totalPrice.toString()+" LE");
 
             return view1;
         }
