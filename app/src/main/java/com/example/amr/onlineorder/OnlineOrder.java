@@ -103,48 +103,6 @@ public class OnlineOrder extends AppCompatActivity {
 
 
 
-        /**
-         * search
-         */
-
-        try {
-
-            search.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    ArrayList<Order> filterOrders = new ArrayList<>();
-
-                    viewAllOrders.setAdapter(null);
-
-                    for (int y = 0; y < orderlist.size(); y++)
-                    {
-
-                        if (search.getSelectedItem().toString().equals(orderlist.get(y).state)) {
-                            filterOrders.add(orderlist.get(y));
-                        }
-                    }
-
-                    CustomAdapter myAdapter = new CustomAdapter(filterOrders);
-                    viewAllOrders.setAdapter(myAdapter);
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-
-                    CustomAdapter myAdapter = new CustomAdapter(orderlist);
-                    viewAllOrders.setAdapter(myAdapter);
-                }
-            });
-
-        }
-        catch (Exception e)
-        {
-            Toast.makeText(OnlineOrder.this, e.getMessage(), Toast.LENGTH_LONG).show();
-
-        }
-
-
-
 
 
 
