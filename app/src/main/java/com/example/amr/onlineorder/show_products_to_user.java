@@ -79,8 +79,6 @@ public class show_products_to_user extends AppCompatActivity {
         cate = (Category) bundle.getSerializable("CATEGORY");
 
 
-
-
         selected_items = new ArrayList<>();
         products = new ArrayList<>();
 
@@ -173,7 +171,7 @@ public class show_products_to_user extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        getMenuInflater().inflate(R.menu.menu_to_check,menu);
+        getMenuInflater().inflate(R.menu.menu_to_check, menu);
         return true;
     }
 
@@ -208,9 +206,7 @@ public class show_products_to_user extends AppCompatActivity {
             Counter = 0;
             selected_items.clear();
 
-        }
-        else if(item.getItemId()==R.id.checked_order)
-        {
+        } else if (item.getItemId() == R.id.checked_order) {
             toolbar.getMenu().clear();
             toolbar.inflateMenu(R.menu.create_order);
             countertxtview.setText("0 Item Selected");

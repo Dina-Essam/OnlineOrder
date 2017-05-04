@@ -2,10 +2,9 @@ package com.example.amr.onlineorder;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.Rect;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -19,7 +18,6 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -27,7 +25,7 @@ import java.util.ArrayList;
 
 public class show_products_of_order extends AppCompatActivity {
 
-    ArrayList<Product> products=new ArrayList<>();
+    ArrayList<Product> products = new ArrayList<>();
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
 
@@ -35,8 +33,6 @@ public class show_products_of_order extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_products_of_order);
-
-
 
 
         Bundle bundle = new Bundle();
@@ -58,18 +54,14 @@ public class show_products_of_order extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
 
-
-
     }
-
 
 
     /**
      * Adapter
      */
 
-    public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder>
-    {
+    public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
         ArrayList<Product> productArrayList = new ArrayList<>();
         show_products_of_order activity;
         private Context context;
@@ -92,7 +84,6 @@ public class show_products_of_order extends AppCompatActivity {
         public void onBindViewHolder(ViewHolder holder, int position) {
 
 
-
             final Product upload = productArrayList.get(position);
 
             /**
@@ -104,9 +95,6 @@ public class show_products_of_order extends AppCompatActivity {
             holder.price.setText(upload.getPrice().toString() + " LE");
             Glide.with(getApplicationContext()).load(upload.getUrl()).into(holder.imageView);
             holder.overflow.setVisibility(View.GONE);
-
-
-
 
 
         }
@@ -140,8 +128,6 @@ public class show_products_of_order extends AppCompatActivity {
 
 
         }
-
-
 
 
     }
@@ -187,8 +173,6 @@ public class show_products_of_order extends AppCompatActivity {
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
-
-
 
 
 }

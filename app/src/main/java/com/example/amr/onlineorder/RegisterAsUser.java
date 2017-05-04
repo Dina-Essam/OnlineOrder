@@ -59,6 +59,7 @@ public class RegisterAsUser extends AppCompatActivity {
                 if (address.getText().toString().isEmpty()) {
                     address.setError("Please Enter Address");
                 } else {
+                    // el check fel firebase mwgod wla la2
                     final ProgressDialog progressDialog = ProgressDialog.show(RegisterAsUser.this, "Please wait...", "Processing...", true);
                     (firebaseAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString()))
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -88,6 +89,7 @@ public class RegisterAsUser extends AppCompatActivity {
 
                         User user = new User(s,name.getText().toString(), email.getText().toString(), phone.getText().toString(), address.getText().toString());
 
+                        // el save fel firebase as a object
                         mDatabase.child("users").child(s).setValue(user);
 
                     }

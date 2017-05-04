@@ -64,6 +64,7 @@ public class RegisterAsAdmin extends AppCompatActivity {
         Image_brand = (ImageView) findViewById(R.id.image_brand);
 
 
+        // hena baro7 lel gallery w b5tar swra
         Image_brand.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,6 +93,7 @@ public class RegisterAsAdmin extends AppCompatActivity {
                 if (address.getText().toString().isEmpty()) {
                     address.setError("Please Enter Address");
                 } else {
+                    // check eza kan mwgod wla la2
                     (firebaseAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString()))
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
@@ -123,6 +125,7 @@ public class RegisterAsAdmin extends AppCompatActivity {
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
 
+    // el m2sood be file upload hwa el image ene agebha mn el gallery w b3d ma tkon m7tota fel image view awdeha lel firebase w a5odha fe string as url
     private void uploadFile() {
         //checking if file is available
         if (filePath != null) {
@@ -144,6 +147,7 @@ public class RegisterAsAdmin extends AppCompatActivity {
                     //displaying success toast
              //       Toast.makeText(getApplicationContext(), "File Uploaded ", Toast.LENGTH_LONG).show();
 
+                    // ba5odha fe string as url
                     imageurl = taskSnapshot.getDownloadUrl().toString();
 
                     DatabaseReference mDatabase;
@@ -154,6 +158,7 @@ public class RegisterAsAdmin extends AppCompatActivity {
 
                     Admin a = new Admin(s, name.getText().toString(), email.getText().toString(), phone.getText().toString(), address.getText().toString(), imageurl);
 
+                    // b3ml save fel firebase lel object of admin
                     mDatabase.child("admins").child(s).setValue(a);
 
                     Toast.makeText(RegisterAsAdmin.this, "Registration successful", Toast.LENGTH_LONG).show();
@@ -181,6 +186,7 @@ public class RegisterAsAdmin extends AppCompatActivity {
         }
     }
 
+    // hena ba5od mn el gallery w a7ot fel image view
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

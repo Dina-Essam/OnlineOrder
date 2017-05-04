@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+//zy el add bezabt
 public class EditCategory extends AppCompatActivity {
 
     EditText Input_category_name;
@@ -169,6 +170,7 @@ public class EditCategory extends AppCompatActivity {
 
     }
 
+    // function el update fel firebase bmsek el root w b7ded el id w babda2 a update
     private void updateCat(String name, String color, String id) {
 
         mFirebaseDatabase.child(id).child("name").setValue(name);

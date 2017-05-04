@@ -38,6 +38,8 @@ public class MainAdmin extends AppCompatActivity {
         progressDialog.setMessage("Please wait...");
         progressDialog.show();
 
+        // hena b3ml display lel id bta3 el admin ele 3ml login b7es ene ab3to lel activity ele ba3deh 34an ageb el categories
+        // 3la asaso w b7es mt5od4 w2t henak ene a3ml el 7agten fa 2semthom 3la el two activities a7sn
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference();
         databaseReference.child("admins").addValueEventListener(new ValueEventListener() {
@@ -67,6 +69,7 @@ public class MainAdmin extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                // el bundle dh 34an ywadeh 3la el show categories w ykon m3ah el id of admin w hwa ray7 34an a3red 3la asaso el categories bt3to b2a
                 Bundle dataBundle = new Bundle();
                 dataBundle.putString("admin_id", id_admin);
                 Intent i = new Intent(MainAdmin.this, ShowCategories.class);

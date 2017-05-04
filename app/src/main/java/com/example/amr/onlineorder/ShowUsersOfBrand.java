@@ -34,7 +34,7 @@ public class ShowUsersOfBrand extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         adm_id = extras.getString("admi_id");
 
-      //  Toast.makeText(ShowUsersOfBrand.this, adm_id, Toast.LENGTH_SHORT).show();
+        //  Toast.makeText(ShowUsersOfBrand.this, adm_id, Toast.LENGTH_SHORT).show();
 
         dataids_users = new ArrayList<>();
         datanames_users = new ArrayList<>();
@@ -100,7 +100,7 @@ public class ShowUsersOfBrand extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 
-               // Toast.makeText(ShowUsersOfBrand.this, dataids_users.get(arg2), Toast.LENGTH_SHORT).show();
+                // Toast.makeText(ShowUsersOfBrand.this, dataids_users.get(arg2), Toast.LENGTH_SHORT).show();
                 Bundle dataBundle = new Bundle();
                 dataBundle.putString("user_id", dataids_users.get(arg2));
                 Intent i = new Intent(ShowUsersOfBrand.this, ShowOrdersOfUser.class);

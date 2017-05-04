@@ -17,7 +17,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,8 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.amr.onlineorder.R.id.spinnerstatus;
-
+// el mfrod task Ahmed Esmat
 public class OnlineOrder extends AppCompatActivity {
     ListView viewAllOrders;
     private ProgressDialog progressDialog;
@@ -84,7 +82,7 @@ public class OnlineOrder extends AppCompatActivity {
                         orderlist.add(oneOrder);
 
                     }
-
+                    // bt3red mn hena el orderlist fel listview
                     CustomAdapter myAdapter = new CustomAdapter(orderlist);
                     viewAllOrders.setAdapter(myAdapter);
                 } catch (Exception e) {
@@ -98,13 +96,6 @@ public class OnlineOrder extends AppCompatActivity {
 
             }
         });
-
-
-
-
-
-
-
 
     }
 
@@ -209,7 +200,6 @@ public class OnlineOrder extends AppCompatActivity {
 
                         }
                     }
-
 
                 }
 

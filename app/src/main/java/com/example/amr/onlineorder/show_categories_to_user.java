@@ -57,7 +57,7 @@ public class show_categories_to_user extends AppCompatActivity {
          * Fill List from Brand
          */
 
-
+        // hena bn3ml show lel categories ele mwgoda fel brand el folany ele enTa e5tarto w wla asaso ba5od el id bta3 el category lma tedos w tro7 t4try product mn henak fel activity ele ba3do
         databaseReference.child("categoriesAdmin").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

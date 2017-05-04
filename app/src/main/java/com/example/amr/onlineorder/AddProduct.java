@@ -58,9 +58,11 @@ public class AddProduct extends AppCompatActivity {
         name_cat = new ArrayList<>();
         id_cat = new ArrayList<>();
 
+        // string el admin id gaybha mn awl activity 5ales w le7d hena 34an a3ml save 3la asaso
         Bundle extras = getIntent().getExtras();
         adminnnn_id = extras.getString("adminnnn_id");
 
+        // hena b3ml show lel categoires fe spinner 34an y select ele 3ayzo w ysave 3la asaso
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference();
         databaseReference.child("categoriesAdmin").addValueEventListener(new ValueEventListener() {
@@ -84,6 +86,7 @@ public class AddProduct extends AppCompatActivity {
                 }
                 Spinner staticSpinner = (Spinner) findViewById(R.id.static_spinner);
 
+                // show el Arraylist ele gbtha w feha el categories name fel spinner
                 ArrayAdapter<String> staticAdapter = new ArrayAdapter<String>(AddProduct.this,
                         android.R.layout.simple_spinner_item, name_cat);
 
@@ -127,6 +130,7 @@ public class AddProduct extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                // hena b3ml intent lel gallery 34an y5tar swra w 3la asashaa mn ta7t ybda2 y save zy ma hn4of
                 Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
                 startActivityForResult(gallery, PICK_IMAGE);
             }
@@ -172,9 +176,7 @@ public class AddProduct extends AppCompatActivity {
                     //dismissing the progress dialog
                     progressDialog.dismiss();
 
-                    //displaying success toast
-//                    Toast.makeText(getApplicationContext(), "File Uploaded ", Toast.LENGTH_LONG).show();
-
+                    // b7ot link el image ele et3mlha upload hena fel string dh
                     imageurl = taskSnapshot.getDownloadUrl().toString();
 
                     //  Toast.makeText(AddProduct.this, catch_id+imageurl, Toast.LENGTH_SHORT).show();
@@ -182,8 +184,10 @@ public class AddProduct extends AppCompatActivity {
 
                     mDatabase = FirebaseDatabase.getInstance().getReference();
 
+                    // id el product el folany
                     String s = mDatabase.push().getKey();
 
+                    // ba5odhom fe object w bab3thom mra wa7da lel node of productC
                     Product a = new Product(s, name.getText().toString().trim(), price.getText().toString().trim(), imageurl, catch_id);
 
                     mDatabase.child("productsC").child(s).setValue(a);
@@ -208,6 +212,8 @@ public class AddProduct extends AppCompatActivity {
             Toast.makeText(AddProduct.this, "File Error", Toast.LENGTH_SHORT).show();
         }
     }
+
+    // hena b7awel el image ele gbtha le itmap 34an a3rf a3redha fel imageview ele ana 3amelhaa
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

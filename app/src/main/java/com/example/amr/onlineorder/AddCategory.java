@@ -66,10 +66,13 @@ public class AddCategory extends AppCompatActivity {
                         finColor = "#000000";
                     }
 
+                    // hena b3ml add lel category el folany fel databse bab3tlo el object w hwa feh el data members bta3to
+
                     DatabaseReference mDatabase;
 
                     mDatabase = FirebaseDatabase.getInstance().getReference();
 
+                    // dh el id bta3 el category el floany
                     String s = mDatabase.push().getKey();
 
                     Category c = new Category(s, Input_category_name.getText().toString(), finColor, adm_id);
@@ -157,7 +160,7 @@ public class AddCategory extends AppCompatActivity {
         return hexBuilder.toString().substring(6, 8);
     }
 
-
+    // hena brag3 ele e5taro mn el bars bta3et el clolrs fel string dh 3la hy2et #ffffff
     public static String reurn_color(int r, int g, int b) {
         String color = "#";
         color = color + decToHex(r);

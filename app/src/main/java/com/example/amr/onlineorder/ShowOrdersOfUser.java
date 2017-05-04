@@ -36,7 +36,7 @@ public class ShowOrdersOfUser extends AppCompatActivity {
     DatabaseReference mDataRef;
     ArrayList<Order> orderlist;
     DatabaseReference mData;
-    String username="";
+    String username = "";
     private DatabaseReference mF;
     private FirebaseDatabase mFirebaseInstance;
 
@@ -116,7 +116,6 @@ public class ShowOrdersOfUser extends AppCompatActivity {
     }
 
 
-
     /**
      * Adapter
      */
@@ -150,39 +149,34 @@ public class ShowOrdersOfUser extends AppCompatActivity {
             LayoutInflater linflater = getLayoutInflater();
 
             View view1 = linflater.inflate(R.layout.row_order_of_admin, null);
-            final Spinner state=(Spinner)view1.findViewById(R.id.spinnerstatus);
+            final Spinner state = (Spinner) view1.findViewById(R.id.spinnerstatus);
 
-            if(orderlist.get(position).getState().equals("Pending"))
-            {
-                List<String> list=new ArrayList<String>();
+            if (orderlist.get(position).getState().equals("Pending")) {
+                List<String> list = new ArrayList<String>();
                 list.add("Pending");
                 list.add("InProgress");
                 list.add("Delivered");
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(ShowOrdersOfUser.this,android.R.layout.simple_spinner_item,list);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(ShowOrdersOfUser.this, android.R.layout.simple_spinner_item, list);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 state.setAdapter(adapter);
 
-            }
-            else if(orderlist.get(position).getState().equals("InProgress"))
-            {
-                List<String> list=new ArrayList<String>();
+            } else if (orderlist.get(position).getState().equals("InProgress")) {
+                List<String> list = new ArrayList<String>();
                 list.add("InProgress");
                 list.add("Pending");
                 list.add("Delivered");
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(ShowOrdersOfUser.this,android.R.layout.simple_spinner_item,list);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(ShowOrdersOfUser.this, android.R.layout.simple_spinner_item, list);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 state.setAdapter(adapter);
-            }
-            else if(orderlist.get(position).getState().equals("Delivered"))
-            {
-                List<String> list=new ArrayList<String>();
+            } else if (orderlist.get(position).getState().equals("Delivered")) {
+                List<String> list = new ArrayList<String>();
                 list.add("Delivered");
                 list.add("Pending");
                 list.add("InProgress");
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(ShowOrdersOfUser.this,android.R.layout.simple_spinner_item,list);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(ShowOrdersOfUser.this, android.R.layout.simple_spinner_item, list);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 state.setAdapter(adapter);
             }
@@ -194,20 +188,14 @@ public class ShowOrdersOfUser extends AppCompatActivity {
             }
 
 
-
-
-
             state.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
-                public void onItemSelected(AdapterView<?> parent, View view,int sposition, long id) {
+                public void onItemSelected(AdapterView<?> parent, View view, int sposition, long id) {
                     String s = ((String) parent.getItemAtPosition(sposition));
-
-
 
                     mFirebaseInstance = FirebaseDatabase.getInstance();
                     mF = mFirebaseInstance.getReference("Order");
                     mF.child(orderArrayList.get(position).getId()).child("state").setValue(state.getSelectedItem().toString());
-
 
                 }
 
@@ -223,7 +211,6 @@ public class ShowOrdersOfUser extends AppCompatActivity {
             return view1;
         }
     }
-
 
 
 }

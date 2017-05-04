@@ -6,6 +6,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
+// 34an yrda ene a5lih y click 3alih aslun gebt el class dh mn 3la el net w mno bagb object w bst5demo fe ene ados 3la el item ele fel recycle view
 public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListener {
     private OnItemClickListener mListener;
 

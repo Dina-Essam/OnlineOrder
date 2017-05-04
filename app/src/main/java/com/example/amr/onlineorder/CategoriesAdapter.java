@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 public class CategoriesAdapter extends BaseAdapter {
     public Context context;
+    // el array list de 4ail feha el name w el color le kol category
     public ArrayList<Category> texts;
     public LayoutInflater layoutInflater;
 

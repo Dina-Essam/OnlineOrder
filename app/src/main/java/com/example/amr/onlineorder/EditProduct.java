@@ -93,6 +93,10 @@ public class EditProduct extends AppCompatActivity {
         });
     }
 
+
+    // function el update fel firebase bmsek el root w b7ded el id w babda2 a update
+    // overload
+
     private void updatePro(String name, String price, String url, String id) {
 
         mFirebaseDatabase.child(id).child("name").setValue(name);

@@ -145,6 +145,7 @@ public class show_brands_to_user extends AppCompatActivity {
 
         Brands = new ArrayList<>();
 
+        // hena b3ml show lel brands ele mwgoda kolha lel user 34an y5tar el brand ele 3ayz y4try mno
         databaseReference.child("admins").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

@@ -55,6 +55,7 @@ public class show_orders_to_user extends AppCompatActivity {
         mprogressDialog.setMessage("Please wait...");
         mprogressDialog.show();
 
+        // bageb el id bta3 el user el folany el awl 34an a3red mn 3la asaso t7t el orders bta3to
         mData = database.getReference();
         mData.child("users").addValueEventListener(new ValueEventListener() {
 
@@ -94,6 +95,8 @@ public class show_orders_to_user extends AppCompatActivity {
         progressDialog.setMessage("Please wait...");
         progressDialog.show();
         mDataRef = database.getReference();
+
+        // hena bageb el order 3la 7sb el id bta3 el user ele gebnah fo2 mn el email bta3o
         mDataRef.child("Order").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -183,11 +186,10 @@ public class show_orders_to_user extends AppCompatActivity {
             View view1 = linflater.inflate(R.layout.row_order, null);
 
             TextView ordername = (TextView) view1.findViewById(R.id.order_name_show_user);
-            for (Product s : orderlist.get(position).items)
-            {
-                ordername.append(s.getName()+ " \n");
+            for (Product s : orderlist.get(position).items) {
+                ordername.append(s.getName() + " \n");
             }
-           // ordername.setText("Order " + (position + 1));
+            // ordername.setText("Order " + (position + 1));
 
             TextView orderstate = (TextView) view1.findViewById(R.id.order_state_user);
             orderstate.setText(orderArrayList.get(position).state);

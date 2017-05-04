@@ -11,9 +11,7 @@ public class Product implements Serializable {
     String price;
     String url;
     String category_id;
-    public Product()
-    {
-
+    public Product() {
     }
 
     public String getId() {

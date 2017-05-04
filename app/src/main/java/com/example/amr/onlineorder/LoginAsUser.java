@@ -44,6 +44,9 @@ public class LoginAsUser extends AppCompatActivity {
             progressDialog.setMessage("Please wait...");
             progressDialog.show();
 
+            // hena ana b3ml check eza kan el email ele kan 3amel login 2bl ma y destroy lel app hwa hwa ele mwgod fel table bta3 el users wla la2
+            // l2en el auth bta3et firebase msh btfara2 ben user w admin de ele bt5lihom yfr2o :D
+
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             databaseReference = database.getReference();
             databaseReference.child("users").addValueEventListener(new ValueEventListener() {
@@ -101,6 +104,7 @@ public class LoginAsUser extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     progressDialog.dismiss();
 
+                                    // check of auth firebase el email dh mwgod wla la2
                                     if (task.isSuccessful()) {
                                         Toast.makeText(LoginAsUser.this, "Login successful", Toast.LENGTH_LONG).show();
                                         GoMainPage();
