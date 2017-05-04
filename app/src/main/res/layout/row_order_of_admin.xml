@@ -16,8 +16,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:drawSelectorOnTop="true"
-        android:entries="@array/status"/>
+        android:drawSelectorOnTop="true"/>
 
     <TextView
         android:id="@+id/productsname"
