@@ -13,8 +13,11 @@ public class Product implements Serializable {
     String price;
     String url;
     String category_id;
+
+
     private DatabaseReference mFirebaseDatabase;
     private FirebaseDatabase mFirebaseInstance;
+
     public Product() {
 
         mFirebaseInstance = FirebaseDatabase.getInstance();

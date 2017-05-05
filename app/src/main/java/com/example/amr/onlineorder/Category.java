@@ -5,6 +5,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 @IgnoreExtraProperties
 public class Category implements Serializable {
@@ -57,4 +58,9 @@ public class Category implements Serializable {
     public void DeleteCat(String id) {
         mFirebaseDatabase.child(id).removeValue();
     }
+
+
+
+
+
 }

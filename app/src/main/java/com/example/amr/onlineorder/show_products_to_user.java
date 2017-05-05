@@ -178,41 +178,50 @@ public class show_products_to_user extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (item.getItemId() == R.id.orderbtn) {
-            /**
-             * h3ml save ll order ll database
-             */
+        try {
 
-            DatabaseReference mDatabase;
+            if (item.getItemId() == R.id.orderbtn) {
+                /**
+                 * h3ml save ll order ll database
+                 */
 
-            mDatabase = FirebaseDatabase.getInstance().getReference();
+                DatabaseReference mDatabase;
 
-            String id = mDatabase.push().getKey();
+                mDatabase = FirebaseDatabase.getInstance().getReference();
 
-            Order send_order = new Order(id_admin, id, cate.Admin_id, "Pending", selected_items);
+                String id = mDatabase.push().getKey();
 
-            mDatabase.child("Order").child(id).setValue(send_order);
+                Order send_order = new Order(id_admin, id, cate.Admin_id, "Pending", selected_items);
 
-            Toast.makeText(show_products_to_user.this, "Order Send Successfully", Toast.LENGTH_SHORT).show();
+                mDatabase.child("Order").child(id).setValue(send_order);
 
-            finish();
+                Toast.makeText(show_products_to_user.this, "Order Send Successfully", Toast.LENGTH_SHORT).show();
 
-            is_in_action = false;
-            toolbar.getMenu().clear();
-            toolbar.inflateMenu(R.menu.menu_to_check);
-            adapter.notifyDataSetChanged();
-            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-            countertxtview.setText("Products");
-            Counter = 0;
-            selected_items.clear();
+                finish();
 
-        } else if (item.getItemId() == R.id.checked_order) {
-            toolbar.getMenu().clear();
-            toolbar.inflateMenu(R.menu.create_order);
-            countertxtview.setText("0 Item Selected");
-            is_in_action = true;
-            adapter.notifyDataSetChanged();
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                is_in_action = false;
+                toolbar.getMenu().clear();
+                toolbar.inflateMenu(R.menu.menu_to_check);
+                adapter.notifyDataSetChanged();
+                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                countertxtview.setText("Products");
+                Counter = 0;
+                selected_items.clear();
+
+            }
+            else if (item.getItemId() == R.id.checked_order) {
+                toolbar.getMenu().clear();
+                toolbar.inflateMenu(R.menu.create_order);
+                countertxtview.setText("0 Item Selected");
+                is_in_action = true;
+                adapter.notifyDataSetChanged();
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            }
+
+        }
+        catch (Exception e)
+        {
+            Toast.makeText(show_products_to_user.this, e.toString(), Toast.LENGTH_LONG).show();
         }
 
 
@@ -363,7 +372,7 @@ public class show_products_to_user extends AppCompatActivity {
     }
 
 
-    private int dpToPx(int dp) {
+    public int dpToPx(int dp) {
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
