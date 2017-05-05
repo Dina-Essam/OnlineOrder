@@ -30,7 +30,6 @@ public class show_categories_to_user extends AppCompatActivity {
     private ProgressDialog progressDialog;
     ListView viewAllBrands;
     Admin Brandinit;
-    DatabaseReference databaseReference;
     ArrayList<Category> categoryList;
 
     @Override
@@ -49,8 +48,7 @@ public class show_categories_to_user extends AppCompatActivity {
 
         progressDialog.setMessage("Please wait...");
         progressDialog.show();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference();
+
 
 
         /**
@@ -58,34 +56,11 @@ public class show_categories_to_user extends AppCompatActivity {
          */
 
         // hena bn3ml show lel categories ele mwgoda fel brand el folany ele enTa e5tarto w wla asaso ba5od el id bta3 el category lma tedos w tro7 t4try product mn henak fel activity ele ba3do
-        databaseReference.child("categoriesAdmin").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                progressDialog.dismiss();
-                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-                categoryList.clear();
-                for (DataSnapshot child : children) {
-                    String uid = child.getKey();
-                    String name = child.child("name").getValue().toString();
-                    String color = child.child("color").getValue().toString();
-                    String admin_id = child.child("admin_id").getValue().toString();
-                    Category c = new Category(uid, name, color, admin_id);
 
-                    if (Brandinit.getId().equals(admin_id)) {
-                        categoryList.add(c);
-                    }
-                }
+        categoryList=Brandinit.CategoriesofBrand(Brandinit.id,viewAllBrands,this);
+        progressDialog.dismiss();
 
-                CustomAdapter myAdapter = new CustomAdapter(categoryList);
-                viewAllBrands.setAdapter(myAdapter);
 
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
 
 
         viewAllBrands.setOnItemClickListener(new AdapterView.OnItemClickListener() {
