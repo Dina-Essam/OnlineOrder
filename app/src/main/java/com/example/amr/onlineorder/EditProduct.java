@@ -19,8 +19,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -34,8 +32,7 @@ public class EditProduct extends AppCompatActivity {
     Button bTnReg;
     ImageView Image_product;
     String id_pro, name_pro, price_pro, image_pro;
-    private DatabaseReference mFirebaseDatabase;
-    private FirebaseDatabase mFirebaseInstance;
+    Product p;
     String imageurl = "";
     private StorageReference storageReference;
     private static final int PICK_IMAGE = 100;
@@ -47,11 +44,9 @@ public class EditProduct extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_product);
 
-        mFirebaseInstance = FirebaseDatabase.getInstance();
-
-        mFirebaseDatabase = mFirebaseInstance.getReference("productsC");
-
         storageReference = FirebaseStorage.getInstance().getReference();
+
+        p = new Product();
 
         Bundle extras = getIntent().getExtras();
         id_pro = extras.getString("iD_pro");
@@ -93,25 +88,6 @@ public class EditProduct extends AppCompatActivity {
         });
     }
 
-
-    // function el update fel firebase bmsek el root w b7ded el id w babda2 a update
-    // overload
-
-    private void updatePro(String name, String price, String url, String id) {
-
-        mFirebaseDatabase.child(id).child("name").setValue(name);
-        mFirebaseDatabase.child(id).child("price").setValue(price);
-        mFirebaseDatabase.child(id).child("url").setValue(url);
-
-    }
-
-    private void updatePro(String name, String price, String id) {
-
-        mFirebaseDatabase.child(id).child("name").setValue(name);
-        mFirebaseDatabase.child(id).child("price").setValue(price);
-
-    }
-
     public String getFileExtension(Uri uri) {
         ContentResolver cR = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
@@ -141,7 +117,7 @@ public class EditProduct extends AppCompatActivity {
 
                     imageurl = taskSnapshot.getDownloadUrl().toString();
 
-                    updatePro(namee.getText().toString(), price.getText().toString(), imageurl, id_pro);
+                    p.updatePro(namee.getText().toString(), price.getText().toString(), imageurl, id_pro);
                     Toast.makeText(EditProduct.this, "Updated Successfully", Toast.LENGTH_SHORT).show();
                     finish();
                 }
@@ -161,7 +137,7 @@ public class EditProduct extends AppCompatActivity {
             });
         } else {
             // Toast.makeText(EditProduct.this, "File Error", Toast.LENGTH_SHORT).show();
-            updatePro(namee.getText().toString(), price.getText().toString(), id_pro);
+            p.updatePro(namee.getText().toString(), price.getText().toString(), id_pro);
             Toast.makeText(EditProduct.this, "Updated Successfully", Toast.LENGTH_SHORT).show();
             finish();
         }

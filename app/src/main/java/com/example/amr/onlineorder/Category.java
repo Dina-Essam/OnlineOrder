@@ -1,5 +1,7 @@
 package com.example.amr.onlineorder;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.io.Serializable;
@@ -7,16 +9,18 @@ import java.io.Serializable;
 @IgnoreExtraProperties
 public class Category implements Serializable {
     String id;
-
-    public String getId() {
-        return id;
-    }
-
     String name;
     String color;
     String Admin_id;
 
+    private DatabaseReference mFirebaseDatabase;
+    private FirebaseDatabase mFirebaseInstance;
+
     public Category() {
+        mFirebaseInstance = FirebaseDatabase.getInstance();
+
+        mFirebaseDatabase = mFirebaseInstance.getReference("categoriesAdmin");
+
     }
 
     public Category(String id, String name, String color, String admin_id) {
@@ -24,6 +28,10 @@ public class Category implements Serializable {
         this.name = name;
         this.color = color;
         Admin_id = admin_id;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getName() {
@@ -38,4 +46,15 @@ public class Category implements Serializable {
         return color;
     }
 
+    // function el update fel firebase bmsek el root w b7ded el id w babda2 a update
+    public void updateCat(String name, String color, String id) {
+
+        mFirebaseDatabase.child(id).child("name").setValue(name);
+        mFirebaseDatabase.child(id).child("color").setValue(color);
+
+    }
+
+    public void DeleteCat(String id) {
+        mFirebaseDatabase.child(id).removeValue();
+    }
 }

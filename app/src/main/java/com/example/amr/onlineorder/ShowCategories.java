@@ -28,10 +28,9 @@ public class ShowCategories extends AppCompatActivity {
     DatabaseReference databaseReference;
     CategoriesAdapter categoriesAdapter;
     ListView lv;
+    Category c;
     String adm_id;
     ArrayList<String> names, ids;
-    private DatabaseReference mFirebaseDatabase;
-    private FirebaseDatabase mFirebaseInstance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,14 +39,12 @@ public class ShowCategories extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mFirebaseInstance = FirebaseDatabase.getInstance();
-
-        mFirebaseDatabase = mFirebaseInstance.getReference("categoriesAdmin");
-
         ids = new ArrayList<>();
         names = new ArrayList<>();
-
         data = new ArrayList<>();
+
+        c = new Category();
+
         lv = (ListView) findViewById(R.id.listview_cat);
         progressDialog = new ProgressDialog(this);
 
@@ -147,7 +144,8 @@ public class ShowCategories extends AppCompatActivity {
                                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
 
-                                        mFirebaseDatabase.child(data.get(index).getId()).removeValue();
+                                        c.DeleteCat(data.get(index).getId());
+
                                         Toast.makeText(ShowCategories.this, "Deleted Successfully", Toast.LENGTH_SHORT).show();
                                     }
                                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {

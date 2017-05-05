@@ -11,12 +11,10 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 //zy el add bezabt
 public class EditCategory extends AppCompatActivity {
 
+    Category c;
     EditText Input_category_name;
     private SeekBar red;
     private SeekBar green;
@@ -28,8 +26,6 @@ public class EditCategory extends AppCompatActivity {
     private static int color_green = 0;
     private static int color_blue = 0;
     private static String finColor = "";
-    private DatabaseReference mFirebaseDatabase;
-    private FirebaseDatabase mFirebaseInstance;
     private static final int sizeOfIntInHalfBytes = 8;
     private static final int numberOfBitsInAHalfByte = 4;
     private static final int halfByte = 0x0F;
@@ -43,16 +39,14 @@ public class EditCategory extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_category);
 
-        mFirebaseInstance = FirebaseDatabase.getInstance();
-
-        mFirebaseDatabase = mFirebaseInstance.getReference("categoriesAdmin");
-
         Input_category_name = (EditText) findViewById(R.id.input_category_name_edit);
         red = (SeekBar) findViewById(R.id.red_edit);
         green = (SeekBar) findViewById(R.id.green_edit);
         blue = (SeekBar) findViewById(R.id.blue_edit);
         cat_color = (TextView) findViewById(R.id.image_product_edit);
         Btn_update_category = (Button) findViewById(R.id.btn_edit_category);
+
+        c = new Category();
 
         Bundle extras = getIntent().getExtras();
         cat_id = extras.getString("iD_cat");
@@ -74,9 +68,9 @@ public class EditCategory extends AppCompatActivity {
                     Input_category_name.setError("Please Enter Category Name");
                 } else {
                     if (finColor.isEmpty()) {
-                        updateCat(Input_category_name.getText().toString(), col_cat, cat_id);
+                        c.updateCat(Input_category_name.getText().toString(), col_cat, cat_id);
                     } else {
-                        updateCat(Input_category_name.getText().toString(), finColor, cat_id);
+                        c.updateCat(Input_category_name.getText().toString(), finColor, cat_id);
                     }
                     Toast.makeText(EditCategory.this, "Updated Successfully", Toast.LENGTH_SHORT).show();
                     finish();
@@ -167,14 +161,6 @@ public class EditCategory extends AppCompatActivity {
         color = color + decToHex(b);
 
         return color;
-
-    }
-
-    // function el update fel firebase bmsek el root w b7ded el id w babda2 a update
-    private void updateCat(String name, String color, String id) {
-
-        mFirebaseDatabase.child(id).child("name").setValue(name);
-        mFirebaseDatabase.child(id).child("color").setValue(color);
 
     }
 

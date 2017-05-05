@@ -15,7 +15,6 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,11 +33,9 @@ public class OnlineOrder extends AppCompatActivity {
     DatabaseReference mDataRef;
     ArrayList<Order> orderlist;
     private DatabaseReference mF;
-    private DatabaseReference mFirebaseDatabase;
     private FirebaseDatabase mFirebaseInstance;
     DatabaseReference mData;
-    String username="";
-    Spinner search;
+    String username = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,22 +44,11 @@ public class OnlineOrder extends AppCompatActivity {
 
         orderlist = new ArrayList<>();
         viewAllOrders = (ListView) findViewById(R.id.listViewOrders);
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        mFirebaseInstance = FirebaseDatabase.getInstance();
-        final Spinner state=(Spinner)findViewById(R.id.spinnerstatus);
-
-        mFirebaseDatabase = mFirebaseInstance.getReference("Order");
-
-        search=(Spinner)findViewById(R.id.spinnerfilter);
-
-        /**
-         * fill Orders
-         *
-         **/
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please wait...");
         progressDialog.show();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
         mDataRef = database.getReference();
         mDataRef.child("Order").addValueEventListener(new ValueEventListener() {
             @Override
@@ -74,20 +60,16 @@ public class OnlineOrder extends AppCompatActivity {
                 products = new ArrayList<>();
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
 
-                try {
-                    for (DataSnapshot child : children) {
+                for (DataSnapshot child : children) {
 
-                        oneOrder = child.getValue(Order.class);
+                    oneOrder = child.getValue(Order.class);
 
-                        orderlist.add(oneOrder);
+                    orderlist.add(oneOrder);
 
-                    }
-                    // bt3red mn hena el orderlist fel listview
-                    CustomAdapter myAdapter = new CustomAdapter(orderlist);
-                    viewAllOrders.setAdapter(myAdapter);
-                } catch (Exception e) {
-                    Toast.makeText(OnlineOrder.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
+                // bt3red mn hena el orderlist fel listview
+                CustomAdapter myAdapter = new CustomAdapter(orderlist);
+                viewAllOrders.setAdapter(myAdapter);
 
             }
 
@@ -133,39 +115,34 @@ public class OnlineOrder extends AppCompatActivity {
             LayoutInflater linflater = getLayoutInflater();
 
             View view1 = linflater.inflate(R.layout.row_order_of_admin, null);
-            final Spinner state=(Spinner)view1.findViewById(R.id.spinnerstatus);
+            final Spinner state = (Spinner) view1.findViewById(R.id.spinnerstatus);
 
-            if(orderlist.get(position).getState().equals("Pending"))
-            {
-                List<String> list=new ArrayList<String>();
+            if (orderlist.get(position).getState().equals("Pending")) {
+                List<String> list = new ArrayList<String>();
                 list.add("Pending");
                 list.add("InProgress");
                 list.add("Delivered");
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(OnlineOrder.this,android.R.layout.simple_spinner_item,list);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(OnlineOrder.this, android.R.layout.simple_spinner_item, list);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 state.setAdapter(adapter);
 
-            }
-            else if(orderlist.get(position).getState().equals("InProgress"))
-            {
-                List<String> list=new ArrayList<String>();
+            } else if (orderlist.get(position).getState().equals("InProgress")) {
+                List<String> list = new ArrayList<String>();
                 list.add("InProgress");
                 list.add("Pending");
                 list.add("Delivered");
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(OnlineOrder.this,android.R.layout.simple_spinner_item,list);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(OnlineOrder.this, android.R.layout.simple_spinner_item, list);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 state.setAdapter(adapter);
-            }
-            else if(orderlist.get(position).getState().equals("Delivered"))
-            {
-                List<String> list=new ArrayList<String>();
+            } else if (orderlist.get(position).getState().equals("Delivered")) {
+                List<String> list = new ArrayList<String>();
                 list.add("Delivered");
                 list.add("Pending");
                 list.add("InProgress");
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(OnlineOrder.this,android.R.layout.simple_spinner_item,list);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(OnlineOrder.this, android.R.layout.simple_spinner_item, list);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 state.setAdapter(adapter);
             }
@@ -210,19 +187,14 @@ public class OnlineOrder extends AppCompatActivity {
             });
 
 
-
-
             state.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
-                public void onItemSelected(AdapterView<?> parent, View view,int sposition, long id) {
+                public void onItemSelected(AdapterView<?> parent, View view, int sposition, long id) {
                     String s = ((String) parent.getItemAtPosition(sposition));
-
-
 
                     mFirebaseInstance = FirebaseDatabase.getInstance();
                     mF = mFirebaseInstance.getReference("Order");
                     mF.child(orderArrayList.get(position).getId()).child("state").setValue(state.getSelectedItem().toString());
-
 
                 }
 
@@ -233,10 +205,8 @@ public class OnlineOrder extends AppCompatActivity {
             });
 
 
-
-
             TextView userIDD = (TextView) view1.findViewById(R.id.customer);
-            userIDD.setText("Cust: "+username);
+            userIDD.setText("Cust: " + username);
 
             TextView orderprice = (TextView) view1.findViewById(R.id.totalprice);
             orderprice.setText("Total Price: " + orderArrayList.get(position).totalPrice.toString() + " LE");

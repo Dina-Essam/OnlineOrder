@@ -29,36 +29,21 @@ import java.util.List;
 
 public class ShowProducts extends AppCompatActivity {
 
-    private DatabaseReference mFirebaseDatabase;
-    private FirebaseDatabase mFirebaseInstance;
-
-    //recyclerview object
     private RecyclerView recyclerView;
-
-    //adapter object
     private RecyclerView.Adapter adapter;
-
-    //database reference
     private DatabaseReference mDatabase;
-
-    //progress dialog
     private ProgressDialog progressDialog;
-
-    //list to hold all the uploaded images
     private List<Product> uploads;
-
     String cat_id, cat_color, adminnn_id;
-
     ArrayList<String> names, ids;
+    Product p;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_products);
 
-        mFirebaseInstance = FirebaseDatabase.getInstance();
-
-        mFirebaseDatabase = mFirebaseInstance.getReference("productsC");
+        p = new Product();
 
         ids = new ArrayList<>();
         names = new ArrayList<>();
@@ -170,7 +155,7 @@ public class ShowProducts extends AppCompatActivity {
                                 builder.setMessage("Do you want to delete " + nameProd + " ?")
                                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int id) {
-                                                mFirebaseDatabase.child(idProd).removeValue();
+                                                p.DeletePro(idProd);
                                                 Toast.makeText(ShowProducts.this, "Deleted Successfully", Toast.LENGTH_SHORT).show();
                                             }
                                         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
