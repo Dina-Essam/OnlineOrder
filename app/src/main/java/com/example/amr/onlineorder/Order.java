@@ -35,7 +35,7 @@ public class Order implements Serializable, Cloneable {
         totalPrice = 0.0;
 
         for (int i = 0; i < items.size(); i++) {
-            totalPrice += Integer.parseInt(items.get(i).getPrice());
+            totalPrice += Double.parseDouble(items.get(i).getPrice());
         }
 
     }
