@@ -2,7 +2,6 @@ package com.example.amr.onlineorder;
 
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -10,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -131,23 +129,6 @@ public class show_orders_to_user extends AppCompatActivity {
 
             }
         });
-
-
-        viewAllOrders.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-
-                Intent GOTOorder = new Intent(show_orders_to_user.this, show_products_of_order.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("PRODUCTS", orderlist.get(position).items);
-                GOTOorder.putExtras(bundle);
-                startActivity(GOTOorder);
-
-
-            }
-        });
-
 
     }
 

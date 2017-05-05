@@ -25,7 +25,7 @@ public class AddCategory extends AppCompatActivity {
     private static int color_red = 0;
     private static int color_green = 0;
     private static int color_blue = 0;
-    private static String finColor;
+    private static String finColor = "";
     private static final int sizeOfIntInHalfBytes = 8;
     private static final int numberOfBitsInAHalfByte = 4;
     private static final int halfByte = 0x0F;
@@ -62,10 +62,10 @@ public class AddCategory extends AppCompatActivity {
                 if (Input_category_name.getText().toString().isEmpty()) {
                     Input_category_name.setError("Please Enter Category Name");
                 } else {
-                    if (finColor.isEmpty()) {
+
+                    if (finColor.equals("")) {
                         finColor = "#000000";
                     }
-
                     // hena b3ml add lel category el folany fel databse bab3tlo el object w hwa feh el data members bta3to
 
                     DatabaseReference mDatabase;

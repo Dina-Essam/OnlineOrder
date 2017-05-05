@@ -82,7 +82,11 @@ public class MainAdmin extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                // el bundle dh 34an ywadeh 3la el show categories w ykon m3ah el id of admin w hwa ray7 34an a3red 3la asaso el categories bt3to b2a
+                Bundle dataBundle = new Bundle();
+                dataBundle.putString("ad_id", id_admin);
                 Intent i = new Intent(MainAdmin.this, OnlineOrder.class);
+                i.putExtras(dataBundle);
                 startActivity(i);
 
             }

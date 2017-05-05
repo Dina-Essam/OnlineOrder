@@ -103,6 +103,7 @@ public class ShowUsersOfBrand extends AppCompatActivity {
                 // Toast.makeText(ShowUsersOfBrand.this, dataids_users.get(arg2), Toast.LENGTH_SHORT).show();
                 Bundle dataBundle = new Bundle();
                 dataBundle.putString("user_id", dataids_users.get(arg2));
+                dataBundle.putString("a_id", adm_id);
                 Intent i = new Intent(ShowUsersOfBrand.this, ShowOrdersOfUser.class);
                 i.putExtras(dataBundle);
                 startActivity(i);

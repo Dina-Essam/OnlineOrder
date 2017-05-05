@@ -36,11 +36,15 @@ public class OnlineOrder extends AppCompatActivity {
     private FirebaseDatabase mFirebaseInstance;
     DatabaseReference mData;
     String username = "";
+    String adm_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_online_order);
+
+        Bundle extras = getIntent().getExtras();
+        adm_id = extras.getString("ad_id");
 
         orderlist = new ArrayList<>();
         viewAllOrders = (ListView) findViewById(R.id.listViewOrders);
@@ -63,8 +67,11 @@ public class OnlineOrder extends AppCompatActivity {
                 for (DataSnapshot child : children) {
 
                     oneOrder = child.getValue(Order.class);
+                    String admin_id = child.child("brand_id").getValue().toString();
 
-                    orderlist.add(oneOrder);
+                    if (adm_id.equals(admin_id)) {
+                        orderlist.add(oneOrder);
+                    }
 
                 }
                 // bt3red mn hena el orderlist fel listview
@@ -116,6 +123,8 @@ public class OnlineOrder extends AppCompatActivity {
 
             View view1 = linflater.inflate(R.layout.row_order_of_admin, null);
             final Spinner state = (Spinner) view1.findViewById(R.id.spinnerstatus);
+
+            final TextView userIDD = (TextView) view1.findViewById(R.id.customer);
 
             if (orderlist.get(position).getState().equals("Pending")) {
                 List<String> list = new ArrayList<String>();
@@ -177,7 +186,7 @@ public class OnlineOrder extends AppCompatActivity {
 
                         }
                     }
-
+                    userIDD.setText("Cust: " + username);
                 }
 
                 @Override
@@ -204,9 +213,6 @@ public class OnlineOrder extends AppCompatActivity {
                 }
             });
 
-
-            TextView userIDD = (TextView) view1.findViewById(R.id.customer);
-            userIDD.setText("Cust: " + username);
 
             TextView orderprice = (TextView) view1.findViewById(R.id.totalprice);
             orderprice.setText("Total Price: " + orderArrayList.get(position).totalPrice.toString() + " LE");

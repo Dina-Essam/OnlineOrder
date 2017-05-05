@@ -38,6 +38,7 @@ public class ShowOrdersOfUser extends AppCompatActivity {
     DatabaseReference mData;
     String username = "";
     private DatabaseReference mF;
+    String admin_id;
     private FirebaseDatabase mFirebaseInstance;
 
     @Override
@@ -51,6 +52,7 @@ public class ShowOrdersOfUser extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         id_user = extras.getString("user_id");
+        admin_id = extras.getString("a_id");
 
         /**
          * fill Orders
@@ -75,7 +77,8 @@ public class ShowOrdersOfUser extends AppCompatActivity {
                     for (DataSnapshot child : children) {
 
                         oneOrder = child.getValue(Order.class);
-                        if (id_user.equals(oneOrder.userID)) {
+                        String adminn_id = child.child("brand_id").getValue().toString();
+                        if (admin_id.equals(adminn_id) && id_user.equals(oneOrder.userID)) {
                             orderlist.add(oneOrder);
                         }
 
